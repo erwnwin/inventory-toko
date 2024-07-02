@@ -1,0 +1,20 @@
+<?php
+
+defined('BASEPATH') or exit('No direct script access allowed');
+
+class Dashboard extends CI_Controller
+{
+
+    public function index()
+    {
+        $data['title'] = "Dashboard : Toko Fadhil";
+
+        $this->load->view('layouts/head', $data);
+        $this->load->view('layouts/header', $data);
+        $this->load->view('layouts/sidebar', $data);
+        $this->load->view('owner/dashboard', $data);
+        $this->load->view('layouts/footer', $data);
+    }
+}
+
+/* End of file Dashboard.php */
