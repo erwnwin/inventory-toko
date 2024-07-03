@@ -1,4 +1,6 @@
-/* Erwin, S.Kom : edited */
+/*https://bytewebster.com/*/
+/*https://bytewebster.com/*/
+/*https://bytewebster.com/*/
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css");
 * {
@@ -58,7 +60,7 @@ body {
   border: none;
   padding: 20px;
   margin-top: 5px;
-  background-color: #2563eb;
+  background-color: #059669;
   border-radius: 5px;
   color: #fff;
   cursor: pointer;
@@ -110,7 +112,7 @@ body {
   flex-direction: column;
   height: 480px;
   color: #fff;
-  background: linear-gradient(170deg, #4d34f0, #0e40d5);
+  background: linear-gradient(170deg, #34d399, #059669);
   transition: all 0.5s ease-in;
 }
 .container .intros-container .intro-control .intro-control__inner {
@@ -119,7 +121,7 @@ body {
 .container .intros-container .intro-control button {
   border: none;
   padding: 15px 30px;
-  background-color: #2563eb;
+  background-color: #10b981;
   border-radius: 50px;
   color: #fff;
   margin: 10px 0px;
@@ -127,7 +129,7 @@ body {
 }
 .container .intros-container .intro-control button:focus, .container .intros-container .intro-control button:hover {
   outline: none;
-  background-color: #2563eb;
+  background-color: #059669;
 }
 .container .intros-container .intro-control h3,
 .container .intros-container .intro-control p {
