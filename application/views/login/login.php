@@ -8,9 +8,7 @@
     <link rel="stylesheet" href="<?= base_url() ?>public/login/style.css">
 
     <!-- Credit by Erwin, S.Kom -->
-     <style>
 
-     </style>
 </head>
 
 <body>
@@ -41,7 +39,7 @@
                     <!-- <button id="signup-btn">No account yet? Signup.</button> -->
                 </div>
             </div>
-           
+
         </div>
     </div>
     <script src="<?= base_url() ?>public/login/script.js"></script>
