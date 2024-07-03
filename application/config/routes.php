@@ -51,17 +51,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
 */
 $route['default_controller'] = 'home';
 
-$route['dashboard'] = 'Owner/Dashboard';
-$route['profil'] = 'Owner/Profil';
-$route['info-apps'] = 'Owner/Info_app';
+$route['dashboard'] = 'owner/dashboard';
+$route['profil'] = 'owner/profil';
+$route['info-apps'] = 'owner/info_app';
 
-$route['apps-kasir'] = 'Staf/app_kasir';
-$route['apps-kasir/process'] = 'Staf/app_kasir/process';
-$route['apps-kasir/cart-data'] = 'Staf/app_kasir/cart_data';
-$route['apps-kasir/cart-del'] = 'Staf/app_kasir/cart_del';
-$route['apps-kasir/reset'] = 'Staf/app_kasir/reset';
-$route['apps-kasir/update'] = 'Staf/app_kasir/update';
-$route['apps-kasir/edit'] = 'Staf/app_kasir/edit';
+$route['apps-kasir'] = 'staf/app_kasir';
+$route['apps-kasir/process'] = 'staf/app_kasir/process';
+$route['apps-kasir/cart-data'] = 'staf/app_kasir/cart_data';
+$route['apps-kasir/cart-del'] = 'staf/app_kasir/cart_del';
+$route['apps-kasir/reset'] = 'staf/app_kasir/reset';
+$route['apps-kasir/update'] = 'staf/app_kasir/update';
+$route['apps-kasir/edit'] = 'staf/app_kasir/edit';
 
 
 
