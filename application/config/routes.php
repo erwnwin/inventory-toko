@@ -55,6 +55,40 @@ $route['dashboard'] = 'owner/dashboard';
 $route['profil'] = 'owner/profil';
 $route['info-apps'] = 'owner/info_app';
 
+// users
+$route['users'] = 'owner/user';
+$route['users/create'] = 'owner/user/create';
+$route['users/store'] = 'owner/user/store';
+$route['users/check'] = 'owner/user/check_duplicate';
+$route['users/update'] = 'owner/user/update';
+$route['users/delete'] = 'owner/user/delete';
+$route['users/edit/(:any)'] = 'owner/user/edit/$1';
+
+// kategori
+$route['kategori'] = 'owner/kategori';
+$route['kategori/store'] = 'owner/kategori/store';
+
+// units
+$route['units'] = 'owner/units';
+$route['units/store'] = 'owner/units/store';
+
+// items
+$route['items'] = 'owner/items';
+$route['items/create'] = 'owner/items/create';
+$route['items/store'] = 'owner/items/store';
+
+// supplier
+$route['supplier'] = 'owner/supplier';
+$route['supplier/store'] = 'owner/supplier/store';
+
+// barang-masuk
+$route['barang-masuk'] = 'owner/barang_masuk';
+$route['barang-masuk/create'] = 'owner/barang_masuk/create';
+$route['barang-masuk/store'] = 'owner/barang_masuk/store';
+
+// barang-keluar
+$route['barang-keluar'] = 'owner/barang_keluar';
+
 $route['apps-kasir'] = 'staf/app_kasir';
 $route['apps-kasir/process'] = 'staf/app_kasir/process';
 $route['apps-kasir/cart-data'] = 'staf/app_kasir/cart_data';

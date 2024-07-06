@@ -3,7 +3,7 @@
      <!-- Brand Logo -->
      <a href="" class="brand-link">
          <img src="<?= base_url() ?>assets/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-         <span class="brand-text font-weight-light font-weight-bold text-center" style="font-size: 1.2rem; font-weight: bold">TOKO FADHIL</span>
+         <span class="brand-text font-weight-light font-weight-bold text-center" style="font-size: 1.2rem; font-weight: bold">OPTIK FADHEL</span>
      </a>
 
      <!-- Sidebar -->
@@ -26,7 +26,7 @@
 
                  <li class="nav-item">
                      <a href="<?= base_url('apps-kasir') ?>" class="nav-link <?= $this->uri->segment(1) == 'apps-kasir' ? 'active' : ''
-                                                                            ?>">
+                                                                                ?>">
                          <i class="nav-icon fas fa-shopping-cart"></i>
                          <p>
                              Transaksi

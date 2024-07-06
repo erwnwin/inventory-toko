@@ -1,6 +1,4 @@
-// https://bytewebster.com/
-// https://bytewebster.com/
-// https://bytewebster.com/
+// Develop by Erwin, S.Kom
 const signupBtn = document.getElementById("signup-btn");
 // const signinBtn = document.getElementById("signin-btn");
 const mainContainer = document.querySelector(".container");

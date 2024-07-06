@@ -1,0 +1,10 @@
+.preview-image {
+    max-width: 150px;
+    max-height: 15ssss0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.remove-image {
+    cursor: pointer;
+    display: none;
+}

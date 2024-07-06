@@ -103,7 +103,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </div>
                                 <div class="card-body">
                                     <center>
-                                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+
+                                        <dotlottie-player src="https://lottie.host/6d62f3f9-59e4-4d55-9033-0f17d8ff2360/ntS2ZPO9mx.json" background="transparent" speed="1" style="width: 300px; height: 300px" direction="1" playMode="normal" loop autoplay>
+                                        </dotlottie-player>
                                     </center>
                                     <br>
                                     <a href="<?= base_url('apps-kasir') ?>" class="btn btn-danger btn-block"><i class="fas fa-computer"></i> Go to Kasir App</a>
@@ -119,7 +121,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </div>
                                 <div class="card-body">
                                     <center>
-                                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                        <dotlottie-player src="https://lottie.host/13c94b18-db0e-42a4-934a-40195f5666b5/hHHQG2vhcv.json" background="transparent" speed="1" style="width: 300px; height: 300px" direction="1" playMode="normal" loop autoplay></dotlottie-player>
                                     </center>
                                     <br>
                                     <a href="<?= base_url('dashboard') ?>" class="btn btn-primary btn-block"><i class="fas fa-termo"></i> Go to Dashboard</a>
@@ -167,6 +169,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="<?= base_url() ?>assets/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="<?= base_url() ?>assets/dist/js/demo.js"></script>
+    <!-- lottie -->
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
 </body>
 
 </html>
