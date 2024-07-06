@@ -19,6 +19,8 @@ class Barang_masuk extends CI_Controller
     {
         $data['title'] = 'Barang Masuk : Optik Fadhel';
 
+        $data['stock'] = $this->m_stok->get();
+
         $this->load->view('layouts/head', $data);
         $this->load->view('layouts/header', $data);
         $this->load->view('layouts/sidebar', $data);
@@ -82,6 +84,24 @@ class Barang_masuk extends CI_Controller
 
 
 
+    }
+
+    public function delete_in()
+    {
+        $id_stock = $this->input->post('id_stock');
+        $id_item = $this->input->post('id_item');
+        $qty = $this->m_stok->get_stock($id_stock)->row()->qty;
+        $data = [
+            'qty' => $qty,
+            'id_item' => $id_item
+        ];
+        $this->m_item->update_stock_out($data);
+        $this->m_stok->del($id_stock);
+
+        if ($this->db->affected_rows() > 0) {
+            $this->session->set_flashdata('pesan', 'Data Product Masuk berhasil dihapus');
+            redirect(base_url('barang-masuk'));
+        }
     }
 }
 

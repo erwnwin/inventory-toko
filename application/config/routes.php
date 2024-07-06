@@ -85,6 +85,7 @@ $route['supplier/store'] = 'owner/supplier/store';
 $route['barang-masuk'] = 'owner/barang_masuk';
 $route['barang-masuk/create'] = 'owner/barang_masuk/create';
 $route['barang-masuk/store'] = 'owner/barang_masuk/store';
+$route['barang-masuk/delete'] = 'owner/barang_masuk/delete_in';
 
 // barang-keluar
 $route['barang-keluar'] = 'owner/barang_keluar';

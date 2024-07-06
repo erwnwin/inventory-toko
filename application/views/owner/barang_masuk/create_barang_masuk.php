@@ -146,9 +146,9 @@
                      </div>
                      <div class="modal-body table-responsive">
                          <div class="container-fluid">
-                             <table class="table table-bordered table-striped" id="example1">
+                             <table class="table table-sm table-bordered table-striped" id="example2">
                                  <thead>
-                                     <tr>
+                                     <tr class="text-center">
                                          <th>Barcode</th>
                                          <th>Nama Product</th>
                                          <th>Unit</th>
@@ -160,14 +160,14 @@
                                  <tbody>
                                      <?php foreach ($product as $i) { ?>
                                          <tr>
-                                             <td><?= $i->barcode; ?></td>
+                                             <td class="text-center"><?= $i->barcode; ?></td>
                                              <td><?= $i->nama_produk; ?></td>
                                              <td style="text-align: center;"><?= $i->name_unit; ?></td>
                                              <td style="text-align: center;"><?= indo_currency($i->price); ?></td>
-                                             <td><?= $i->stock; ?></td>
+                                             <td style="text-align: center;"><?= $i->stock; ?></td>
                                              <td align="center">
                                                  <button class="btn btn-xs btn-info" id="select" data-id="<?= $i->id_item; ?>" data-barcode="<?= $i->barcode; ?>" data-name="<?= $i->nama_produk; ?>" data-unit="<?= $i->name_unit; ?>" data-stock="<?= $i->stock; ?>">
-                                                     <i class="fa fa-check"></i> Select
+                                                     <i class="fa fa-check"></i> Pilih Item
                                                  </button>
                                              </td>
                                          </tr>
@@ -177,7 +177,7 @@
                          </div>
                      </div>
                      <div class="modal-footer">
-                         <button type="button" class="btn btn-primary btn-sm" id="btnSaveBarangMasukSelect">Simpan</button>
+                         <!-- <button type="button" class="btn btn-primary btn-sm" id="btnSaveBarangMasukSelect">Simpan</button> -->
                          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
                      </div>
                  </div>

@@ -62,6 +62,7 @@
 <script src="<?= base_url() ?>public/js/owner/barang-masuk.js"></script>
 
 <script src="<?= base_url() ?>public/js/sweetalert2@11.js"></script>
+<script src="<?= base_url() ?>public/js/myscript.js"></script>
 
 <script>
     $(function() {
@@ -69,12 +70,13 @@
             "responsive": true,
             "lengthChange": false,
             "autoWidth": false,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+
+            // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         $('#example2').DataTable({
             "paging": true,
-            "lengthChange": false,
-            "searching": false,
+            "lengthChange": true,
+            "searching": true,
             "ordering": true,
             "info": true,
             "autoWidth": false,

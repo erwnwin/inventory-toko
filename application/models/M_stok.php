@@ -4,6 +4,18 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class M_stok extends CI_Model
 {
+    public function get_stock($id = null)
+    {
+        $this->db->select('*');
+        $this->db->from('tbl_stock');
+        if ($id != null) {
+            $this->db->where('id_stock', $id);
+        }
+        $query = $this->db->get();
+        return $query;
+    }
+
+
     public function add_stock_in($post)
     {
         $data = [
@@ -19,10 +31,30 @@ class M_stok extends CI_Model
         $this->db->insert('tbl_stock', $data);
     }
 
+
+    public function get($id = null)
+    {
+        $this->db->select('tbl_stock.*,produk_item.barcode, produk_item.gambar, produk_item.nama_produk as nama_item, supplier.nama_supplier as nama_supplier');
+        $this->db->from('tbl_stock');
+        $this->db->join('produk_item', 'produk_item.id_item=tbl_stock.id_item');
+        $this->db->join('supplier', 'supplier.id_supplier=tbl_stock.id_supplier', 'left');
+        if ($id != null) {
+            $this->db->where('id_stock', $id);
+        }
+        $query = $this->db->get()->result();
+        return $query;
+    }
+
+    public function del($id)
+    {
+        $this->db->where('id_stock', $id);
+        $this->db->delete('tbl_stock');
+    }
+
     // public function add_stock_out($post)
     // {
     //     $data = [
-    //         'item_id' => $post['item_id'],
+    //         'id_item' => $post['id_item'],
     //         'type' => 'out',
     //         'detail' => $post['detail'],
     //         'qty' => $post['qty'],
