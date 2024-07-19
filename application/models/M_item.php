@@ -14,7 +14,7 @@ class M_item extends CI_Model
             $this->db->where('id_item', $id);
         }
         $this->db->order_by('barcode', 'ASC');
-        $query = $this->db->get()->result();
+        $query = $this->db->get();
         return $query;
     }
 
@@ -98,6 +98,16 @@ class M_item extends CI_Model
         $sql = "UPDATE produk_item SET stock = stock - '$qty' WHERE id_item = '$id'";
         $this->db->query($sql);
     }
+
+    // public function update_stock_out_new($data)
+    // {
+    //     $this->db->where('id_item', $data['id_item']);
+    //     $this->db->update('produk_item', array('stock' => $data['qty']));
+
+    //     // Return the number of affected rows
+    //     return $this->db->affected_rows();
+    // }
+
 
     // kode otomatis
     public function generate_product_code()

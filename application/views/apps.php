@@ -167,8 +167,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="<?= base_url() ?>assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="<?= base_url() ?>assets/dist/js/adminlte.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="<?= base_url() ?>assets/dist/js/demo.js"></script>
     <!-- lottie -->
     <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
 </body>

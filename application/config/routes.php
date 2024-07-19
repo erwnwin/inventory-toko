@@ -86,9 +86,18 @@ $route['barang-masuk'] = 'owner/barang_masuk';
 $route['barang-masuk/create'] = 'owner/barang_masuk/create';
 $route['barang-masuk/store'] = 'owner/barang_masuk/store';
 $route['barang-masuk/delete'] = 'owner/barang_masuk/delete_in';
+$route['barang-masuk/deleted'] = 'owner/barang_masuk/delete_response';
+$route['barang-masuk/filter'] = 'owner/barang_masuk/filter_data';
+// filter
+$route['filter/get'] = 'filter/filter_by_date_ajax';
+$route['filter/get-out'] = 'filter/filter_by_date_ajax_out';
+// $route['barang-masuk/filter'] = 'filter/filter_data';
 
 // barang-keluar
 $route['barang-keluar'] = 'owner/barang_keluar';
+$route['barang-keluar/create'] = 'owner/barang_keluar/create';
+$route['barang-keluar/store'] = 'owner/barang_keluar/store';
+$route['barang-keluar/delete'] = 'owner/barang_keluar/delete_out';
 
 $route['apps-kasir'] = 'staf/app_kasir';
 $route['apps-kasir/process'] = 'staf/app_kasir/process';
@@ -97,6 +106,7 @@ $route['apps-kasir/cart-del'] = 'staf/app_kasir/cart_del';
 $route['apps-kasir/reset'] = 'staf/app_kasir/reset';
 $route['apps-kasir/update'] = 'staf/app_kasir/update';
 $route['apps-kasir/edit'] = 'staf/app_kasir/edit';
+$route['apps-kasir/print/(:num)'] = 'staf/app_kasir/print/$1';
 
 
 

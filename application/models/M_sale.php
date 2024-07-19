@@ -14,19 +14,19 @@ class M_sale extends CI_Model
         } else {
             $no = "0001";
         }
-        $invoice = "MP" . date('ymd') . $no;
+        $invoice = "INV#" . date('ymd') . $no;
         return $invoice;
     }
 
     public function get_cart($params = null)
     {
-        $this->db->select('*,produk_item.barcode, produk_item.name as item_name, tbl_cart.price as cart_price');
+        $this->db->select('*,produk_item.barcode, produk_item.nama_produk as item_name, tbl_cart.price as cart_price');
         $this->db->from('tbl_cart');
-        $this->db->join('produk_item', 'tbl_cart.item_id=produk_item.item_id');
+        $this->db->join('produk_item', 'tbl_cart.id_item=produk_item.id_item');
         if ($params != null) {
             $this->db->where($params);
         }
-        $this->db->where('user_id', $this->session->userdata('userid'));
+        $this->db->where('id_user', 1);
         $query = $this->db->get();
         return $query;
     }
@@ -35,7 +35,7 @@ class M_sale extends CI_Model
     {
         $data = [
             'invoice' => $this->invoice_no(),
-            'customer_id' => $post['customer_id'] != null ? $post['customer_id'] : null,
+            'id_customer' => $post['id_customer'] != null ? $post['id_customer'] : null,
             'total_price' => $post['sub_total'],
             'discount' => $post['discount'],
             'final_price' => $post['grand_total'],
@@ -43,7 +43,8 @@ class M_sale extends CI_Model
             'uang_kembalian' => $post['change'],
             'note' => $post['note'],
             'date' => $post['date'],
-            'user_id' => $this->session->userdata('userid')
+            'id_user' => 1
+            // 'id_user' => 1
         ];
 
         $this->db->insert('tbl_sale', $data);
@@ -57,20 +58,20 @@ class M_sale extends CI_Model
 
     public function get($id = null)
     {
-        $this->db->select('*,produk_item.barcode, produk_item.name as item_name, t_cart.price as cart_price, t_cart.item_id as cart_item');
-        $this->db->from('t_cart');
-        $this->db->join('produk_item', 't_cart.item_id=produk_item.item_id');
+        $this->db->select('*,produk_item.barcode, produk_item.nama_produk as item_name, tbl_cart.price as cart_price, tbl_cart.id_item as cart_item');
+        $this->db->from('tbl_cart');
+        $this->db->join('produk_item', 'tbl_cart.id_item=produk_item.id_item');
         if ($id != null) {
-            $this->db->where('cart_id', $id);
+            $this->db->where('id_cart', $id);
         }
-        $this->db->where('user_id', $this->session->userdata('userid'));
+        $this->db->where('id_user', 1);
         $query = $this->db->get();
         return $query;
     }
 
     public function add_cart($post)
     {
-        $sql = "SELECT MAX(cart_id) AS cart_no FROM tbl_cart";
+        $sql = "SELECT MAX(id_cart) AS cart_no FROM tbl_cart";
         $query = $this->db->query($sql);
         if ($query->num_rows() > 0) {
             $row = $query->row();
@@ -79,13 +80,13 @@ class M_sale extends CI_Model
             $car_no = '1';
         }
         $params = [
-            'cart_id' => $car_no,
-            'item_id' => $post['item_id'],
+            'id_cart' => $car_no,
+            'id_item' => $post['id_item'],
             'price' => $post['price'],
             'discount_item' => 0,
             'qty' => $post['qty'],
             'total' => ($post['price'] * $post['qty']),
-            'user_id' => $this->session->userdata('userid')
+            'id_user' => 1
         ];
 
         $this->db->insert('tbl_cart', $params);
@@ -98,16 +99,16 @@ class M_sale extends CI_Model
             'discount_item' => $post['item_discount'],
             'qty' => $post['item_qty'],
             'total' => (($post['item_price'] * $post['item_qty']) - $post['item_discount']),
-            'user_id' => $this->session->userdata('userid')
+            'id_user' => 1
         ];
 
-        $this->db->where('cart_id', $post['cart_id']);
+        $this->db->where('id_cart', $post['id_cart']);
         $this->db->update('tbl_cart', $data);
     }
 
     public function update_cart_qty($post)
     {
-        $sql = "UPDATE tbl_cart SET price = '$post[price]', qty = qty + '$post[qty]', total = '$post[price]' * qty WHERE item_id = '$post[item_id]'";
+        $sql = "UPDATE tbl_cart SET price = '$post[price]', qty = qty + '$post[qty]', total = '$post[price]' * qty WHERE id_item = '$post[id_item]'";
         $this->db->query($sql);
     }
 
@@ -119,29 +120,29 @@ class M_sale extends CI_Model
         $this->db->delete('tbl_cart');
     }
 
-    public function getbl_sale($id = null)
+    public function get_sale($id = null)
     {
-        $this->db->select('*, customer.name as customer_name, user.name as user_name, tbl_sale.created as sale_created');
+        $this->db->select('*, customer.name as customer_name, tbl_users.nama_user as user_name, tbl_sale.created as sale_created');
         $this->db->from('tbl_sale');
-        $this->db->join('user', 'tbl_sale.user_id=user.user_id');
-        $this->db->join('customer', 'tbl_sale.customer_id=customer.customer_id', 'left');
+        $this->db->join('tbl_users', 'tbl_sale.id_user=tbl_users.id_user');
+        $this->db->join('customer', 'tbl_sale.id_customer=customer.id_customer', 'left');
         if ($id != null) {
-            $this->db->where('sale_id', $id);
+            $this->db->where('id_sale', $id);
         }
         $this->db->order_by('tbl_sale.created', 'desc');
         $query = $this->db->get();
         return $query;
     }
 
-    public function getbl_sale_detail($sale_id = null)
+    public function get_sale_detail($id_sale = null)
     {
-        $this->db->select('*, customer.name as customer_name, produk_item.name as item_name');
+        $this->db->select('*, customer.name as customer_name, produk_item.nama_produk as item_name');
         $this->db->from('tbl_sale_detail');
-        $this->db->join('produk_item', 'tbl_sale_detail.item_id=produk_item.item_id');
-        $this->db->join('tbl_sale', 'tbl_sale_detail.sale_id=tbl_sale.sale_id');
-        $this->db->join('customer', 'tbl_sale.customer_id=customer.customer_id', 'left');
-        if ($sale_id != null) {
-            $this->db->where('tbl_sale_detail.sale_id', $sale_id);
+        $this->db->join('produk_item', 'tbl_sale_detail.id_item=produk_item.id_item');
+        $this->db->join('tbl_sale', 'tbl_sale_detail.id_sale=tbl_sale.id_sale');
+        $this->db->join('customer', 'tbl_sale.id_customer=customer.id_customer', 'left');
+        if ($id_sale != null) {
+            $this->db->where('tbl_sale_detail.id_sale', $id_sale);
         }
         $query = $this->db->get();
         return $query;
@@ -151,8 +152,8 @@ class M_sale extends CI_Model
     {
         $this->db->select('*, SUM(qty) as qty');
         $this->db->from('tbl_sale_detail');
-        $this->db->join('produk_item', 'tbl_sale_detail.item_id=produk_item.item_id');
-        $this->db->group_by('tbl_sale_detail.item_id');
+        $this->db->join('produk_item', 'tbl_sale_detail.id_item=produk_item.id_item');
+        $this->db->group_by('tbl_sale_detail.id_item');
         $this->db->order_by('tbl_sale_detail.qty', 'desc');
         $query = $this->db->get();
         return $query;

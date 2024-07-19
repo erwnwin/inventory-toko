@@ -27,13 +27,16 @@
 
     <!-- Items -->
     <link rel="stylesheet" href="<?= base_url() ?>public/js/owner/items.css">
+    <link rel="stylesheet" href="<?= base_url() ?>public/js/owner/pagination.css">
 
     <style>
         html {
             font-size: .9rem !important;
         }
     </style>
+
+
 </head>
 
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">

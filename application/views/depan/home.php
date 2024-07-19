@@ -27,6 +27,73 @@
     <meta name="msapplication-TileImage" content="<?= base_url() ?>public/depan/assets/img/favicons/mstile-150x150.png">
     <meta name="theme-color" content="#ffffff">
 
+    <style>
+        /* Product card styles */
+        .product-card {
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-body {
+            padding: 1.25rem;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            /* Adjust font size for smaller cards */
+            font-weight: bold;
+            color: #333;
+        }
+
+        .card-text {
+            color: #666;
+        }
+
+        /* Carousel controls */
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: auto;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: #007bff;
+            top: auto;
+            bottom: 0;
+            transform: translateY(-50%);
+        }
+
+        .carousel-control-prev {
+            left: 0;
+        }
+
+        .carousel-control-next {
+            right: 0;
+        }
+
+
+
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .col-lg-3 {
+                flex: 0 0 50%;
+                max-width: 50%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .col-lg-3 {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+        }
+    </style>
 
     <!-- ===============================================-->
     <!--    Stylesheets-->
@@ -44,7 +111,7 @@
     <!-- ===============================================-->
     <main class="main" id="top">
         <nav class="navbar navbar-expand-lg navbar-light sticky-top" data-navbar-on-scroll="data-navbar-on-scroll">
-            <div class="container"><a class="navbar-brand" href="<?= base_url('home')?>"><img src="<?= base_url() ?>public/img/logo.png" height="45" alt="logo" /></a>
+            <div class="container"><a class="navbar-brand" href="<?= base_url('home') ?>"><img src="<?= base_url() ?>public/img/logo.png" height="45" alt="logo" /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"> </span></button>
                 <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto">
@@ -85,40 +152,113 @@
         <!-- ============================================-->
         <!-- <section> begin ============================-->
         <section class="pt-5 pt-md-9 mb-6" id="produks">
-
-            <div class="bg-holder z-index--1 bottom-0 d-none d-lg-block" style="background-image:url(<?= base_url() ?>public/depan/assets/img/category/shape.png);opacity:.5;">
-            </div>
+            <div class="bg-holder z-index--1 bottom-0 d-none d-lg-block" style="background-image:url(<?= base_url() ?>public/depan/assets/img/category/shape.png); opacity:.5;"></div>
             <!--/.bg-holder-->
-
             <div class="container">
-                <h1 class="fs-9 fw-bold mb-4 text-center"> Produk Kami <br class="d-none d-xl-block" />-------</h1>
+                <h1 class="fs-9 fw-bold mb-4 text-center">Produk Kami</h1>
                 <div class="row">
-                    <div class="col-lg-3 col-sm-6 mb-2"> <img class="mb-3 ms-n3" src="<?= base_url() ?>public/depan/assets/img/category/icon1.png" width="75" alt="Feature" />
-                        <h4 class="mb-3">First click tests</h4>
-                        <p class="mb-0 fw-medium text-secondary">While most people enjoy casino gambling,</p>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 mb-2"> <img class="mb-3 ms-n3" src="<?= base_url() ?>public/depan/assets/img/category/icon2.png" width="75" alt="Feature" />
-                        <h4 class="mb-3">Design surveys</h4>
-                        <p class="mb-0 fw-medium text-secondary">Sports betting,lottery and bingo playing for the fun</p>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 mb-2"> <img class="mb-3 ms-n3" src="<?= base_url() ?>public/depan/assets/img/category/icon3.png" width="75" alt="Feature" />
-                        <h4 class="mb-3">Preference tests</h4>
-                        <p class="mb-0 fw-medium text-secondary">The Myspace page defines the individual.</p>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 mb-2"> <img class="mb-3 ms-n3" src="<?= base_url() ?>public/depan/assets/img/category/icon4.png" width="75" alt="Feature" />
-                        <h4 class="mb-3">Five second tests</h4>
-                        <p class="mb-0 fw-medium text-secondary">Personal choices and the overall personality of the person.</p>
+                    <div class="col-12">
+                        <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <div class="row justify-content-center">
+                                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                                            <div class="card product-card">
+                                                <img class="card-img-top" src="<?= base_url() ?>public/depan/assets/img/category/icon1.png" alt="Feature" />
+                                                <div class="card-body">
+                                                    <h4 class="card-title mb-3">First click tests</h4>
+                                                    <p class="card-text mb-0 fw-medium text-secondary">While most people enjoy casino gambling,</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                                            <div class="card product-card">
+                                                <img class="card-img-top" src="<?= base_url() ?>public/depan/assets/img/category/icon1.png" alt="Feature" />
+                                                <div class="card-body">
+                                                    <h4 class="card-title mb-3">First click tests</h4>
+                                                    <p class="card-text mb-0 fw-medium text-secondary">While most people enjoy casino gambling,</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                                            <div class="card product-card">
+                                                <img class="card-img-top" src="<?= base_url() ?>public/depan/assets/img/category/icon1.png" alt="Feature" />
+                                                <div class="card-body">
+                                                    <h4 class="card-title mb-3">First click tests</h4>
+                                                    <p class="card-text mb-0 fw-medium text-secondary">While most people enjoy casino gambling,</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                                            <div class="card product-card">
+                                                <img class="card-img-top" src="<?= base_url() ?>public/depan/assets/img/category/icon1.png" alt="Feature" />
+                                                <div class="card-body">
+                                                    <h4 class="card-title mb-3">First click tests</h4>
+                                                    <p class="card-text mb-0 fw-medium text-secondary">While most people enjoy casino gambling,</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                                            <div class="card product-card">
+                                                <img class="card-img-top" src="<?= base_url() ?>public/depan/assets/img/category/icon1.png" alt="Feature" />
+                                                <div class="card-body">
+                                                    <h4 class="card-title mb-3">First click tests</h4>
+                                                    <p class="card-text mb-0 fw-medium text-secondary">While most people enjoy casino gambling,</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                                            <div class="card product-card">
+                                                <img class="card-img-top" src="<?= base_url() ?>public/depan/assets/img/category/icon1.png" alt="Feature" />
+                                                <div class="card-body">
+                                                    <h4 class="card-title mb-3">First click tests</h4>
+                                                    <p class="card-text mb-0 fw-medium text-secondary">While most people enjoy casino gambling,</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                                            <div class="card product-card">
+                                                <img class="card-img-top" src="<?= base_url() ?>public/depan/assets/img/category/icon1.png" alt="Feature" />
+                                                <div class="card-body">
+                                                    <h4 class="card-title mb-3">First click tests</h4>
+                                                    <p class="card-text mb-0 fw-medium text-secondary">While most people enjoy casino gambling,</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Repeat for other cards -->
+                                    </div>
+                                </div>
+                                <!-- Additional carousel items can be added here -->
+                            </div>
+                            <!-- <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button> -->
+                        </div>
                     </div>
                 </div>
-                <div class="text-center"><a class="btn btn-primary" href="<?= base_url('home/produks') ?>" role="button">Lihat Semua Produk</a></div>
+                <div class="text-center mt-4">
+                    <a class="btn btn-primary" href="<?= base_url('home/produks') ?>" role="button">Lihat Semua Produk</a>
+                </div>
             </div><!-- end of .container-->
-
         </section>
+
+
+
+
+
+
+
+
         <!-- <section> close ============================-->
         <!-- ============================================-->
 
 
- <!-- ============================================-->
+        <!-- ============================================-->
         <!-- <section> begin ============================-->
         <!-- <section class="pt-5" id="marketing">
 
@@ -152,7 +292,7 @@
                     </div>
                 </div>
             </div> -->
-            <!-- end of .container-->
+        <!-- end of .container-->
 
         </section>
         <!-- <section> close ============================-->
@@ -190,7 +330,7 @@
         <!-- ============================================-->
 
 
-       
+
 
 
 
@@ -245,6 +385,23 @@
     <script src="<?= base_url() ?>public/depan/assets/js/theme.js"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;family=Volkhov:wght@700&amp;display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.product-card').click(function() {
+                // Toggle the 'card-hover' class on the clicked card
+                $(this).toggleClass('card-hover');
+
+                // Remove 'card-hover' class from other cards
+                $('.product-card').not(this).removeClass('card-hover');
+            });
+        });
+
+        $('#productCarousel').carousel({
+            interval: 3000 // Adjust interval as needed (in milliseconds)
+        });
+    </script>
+
 </body>
 
 </html>

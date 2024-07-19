@@ -10,6 +10,8 @@ class Item extends CI_Controller
     {
         parent::__construct();
         $this->load->model('m_item');
+        $this->load->model('m_kategori');
+        $this->load->model('m_unit');
     }
 
 
@@ -26,12 +28,12 @@ class Item extends CI_Controller
         foreach ($data as $row) {
             $tabel .= '<tr>';
             $tabel .= '<td>' . $row->barcode . '</td>';
-            $tabel .= '<td>' . $row->name . '</td>';
+            $tabel .= '<td>' . $row->nama_produk . '</td>';
             $tabel .= '<td style="text-align: center;">' . $row->name_unit . '</td>';
             $tabel .= '<td style="text-align: center;">' . indo_currency($row->price) . '</td>';
             $tabel .= '<td>' . $row->stock . '</label>';
             $tabel .= '<td style="text-align:center;">';
-            $tabel .= '<button class="btn btn-xs btn-info" id="select" data-id="' . $row->item_id . '" data-barcode="' . $row->barcode . '" data-price="' . $row->price . '" data-stock="' . $row->stock . '"><i class="fa fa-check"></i> Select</button>';
+            $tabel .= '<button class="btn btn-xs btn-info" id="select" data-id="' . $row->id_item . '" data-barcode="' . $row->barcode . '" data-price="' . $row->price . '" data-stock="' . $row->stock . '"><i class="fa fa-check"></i> Select</button>';
             $tabel .= '</td>';
             $tabel .= '</tr>';
         }
@@ -82,7 +84,7 @@ class Item extends CI_Controller
 
     public function edit()
     {
-        $id = $this->input->post('item_id');
+        $id = $this->input->post('id_item');
         $data = $this->m_item->get($id)->row_array();
         header('Content-Type: application/json');
         echo json_encode($data);
@@ -118,6 +120,41 @@ class Item extends CI_Controller
             $this->session->set_flashdata('pesan', 'Data item berhasil diupdate.');
             redirect('item');
         }
+    }
+
+    public function delete()
+    {
+        $id = $this->input->post('id_item');
+        $item = $this->m_item->get($id)->row();
+
+        if ($item->gambar != 'default.png') {
+            unlink('./uploads/product/' . $item->gambar);
+        }
+        $this->m_item->delete($id);
+
+        $this->session->set_flashdata('pesan', 'Data item berhasil di hapus!');
+        redirect('item');
+    }
+
+    public function barcode_qrcode($id)
+    {
+        $data['item'] = $this->m_item->get($id)->row();
+        $this->template->load('template', 'product/item/barcode_qrcode', $data);
+    }
+
+    public function barcode_print($id)
+    {
+        $data['item'] = $this->m_item->get($id)->row();
+        $html = $this->load->view('product/item/barcode_print', $data, true);
+        $this->fungsi->PdfGenerator($html, 'barcode-' . $data['item']->barcode, 'A4', 'landscape');
+    }
+    public function qrcode_print($id)
+    {
+        $data['item'] = $this->m_item->get($id)->row();
+        $html = $this->load->view('product/item/qrcode_print', $data, true);
+        // var_dump($html);
+        // die();
+        $this->fungsi->PdfGenerator($html, 'qrcode-' . $data['item']->barcode, 'A4', 'potrait');
     }
 }
 

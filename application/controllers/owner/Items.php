@@ -21,7 +21,7 @@ class Items extends CI_Controller
     {
 
         $data['title'] = 'Items Produk : Optik Fadhel';
-        $data['product'] = $this->m_item->get();
+        $data['product'] = $this->m_item->get()->result();
 
         $this->load->view('layouts/head', $data);
         $this->load->view('layouts/header', $data);

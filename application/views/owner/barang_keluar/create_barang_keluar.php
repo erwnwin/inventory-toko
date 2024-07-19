@@ -5,7 +5,7 @@
                  <div class="container-fluid">
                      <div class="row mb-2">
                          <div class="col-sm-6">
-                             <h1>Create Products Masuk</h1>
+                             <h1>Create Products Keluar</h1>
                          </div>
                      </div>
                  </div><!-- /.container-fluid -->
@@ -25,7 +25,7 @@
                              <!-- Default box -->
                              <div class="card">
                                  <div class="card-header">
-                                     <h3 class="card-title">Form Create Products Masuk</h3>
+                                     <h3 class="card-title">Form Create Products Keluar</h3>
 
                                      <div class="card-tools">
                                          <a href="<?= base_url('barang-masuk') ?>" class="btn btn-sm btn-default"><i class="fa fa-arrow-left"></i> Back</a>
@@ -33,8 +33,8 @@
                                      </div>
                                  </div>
                                  <div class="card-body p-0">
-                                     <!-- <form class="form-horizontal" id="createBarangMasuk" action="<?= base_url('barang-masuk/store') ?>" method="post"> -->
-                                     <form class="form-horizontal" id="createBarangMasuk">
+                                     <!-- <form class="form-horizontal" id="createBarangKeluar" action="<?= base_url('barang-masuk/store') ?>" method="post"> -->
+                                     <form class="form-horizontal" id="createBarangKeluar">
                                          <div class="card-body">
                                              <div class="form-group row">
                                                  <label for="inputPassword3" class="col-sm-4 col-form-label">Tanggal</label>
@@ -84,23 +84,12 @@
                                              </div>
 
                                              <div class="form-group row">
-                                                 <label for="inputPassword3" class="col-sm-4 col-form-label">Keterangan</label>
+                                                 <label for="inputPassword3" class="col-sm-4 col-form-label">Info</label>
                                                  <div class="col-sm-8">
-                                                     <input type="text" name="detail" class="form-control" id="detail" placeholder="Keterangan" autofocus>
+                                                     <input type="text" name="detail" class="form-control" id="detail" placeholder="Rusak / Hilang / dll" autofocus>
                                                  </div>
                                              </div>
 
-                                             <div class="form-group row">
-                                                 <label for="inputPassword3" class="col-sm-4 col-form-label">Supplier (Opsional)</label>
-                                                 <div class="col-sm-8">
-                                                     <select name="id_supplier" id="id_supplier" class="form-control" autofocus>
-                                                         <option value="" selected>--Pilih--</option>
-                                                         <?php foreach ($supplier as $s) { ?>
-                                                             <option value="<?= $s->id_supplier; ?>"><?= $s->nama_supplier; ?></option>
-                                                         <?php } ?>
-                                                     </select>
-                                                 </div>
-                                             </div>
 
                                              <div class="form-group row">
                                                  <label for="inputPassword3" class="col-sm-4 col-form-label">Qty / Jumlah Masuk</label>
@@ -113,7 +102,7 @@
                                          <!-- /.card-body -->
                                          <div class="card-footer">
                                              <!-- <button type="submit" class="btn btn-info">Sign in</button> -->
-                                             <button type="submit" class="btn btn-success btn-sm float-right" name="in_add" id="btnSaveBarangMasuk">
+                                             <button type="submit" class="btn btn-success btn-sm float-right" id="btnSaveBarangKeluar">
                                                  Simpan
                                              </button>
                                          </div>
@@ -181,7 +170,7 @@
                          </div>
                      </div>
                      <div class="modal-footer">
-                         <!-- <button type="button" class="btn btn-primary btn-sm" id="btnSaveBarangMasukSelect">Simpan</button> -->
+                         <!-- <button type="button" class="btn btn-primary btn-sm" id="btnSaveBarangKeluarSelect">Simpan</button> -->
                          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
                      </div>
                  </div>

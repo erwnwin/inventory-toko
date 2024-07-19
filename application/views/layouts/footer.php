@@ -60,6 +60,10 @@
 
 <!-- ajax barang-masuk -->
 <script src="<?= base_url() ?>public/js/owner/barang-masuk.js"></script>
+<script src="<?= base_url() ?>public/js/owner/barang-keluar.js"></script>
+<!-- <script src="<?= base_url() ?>public/js/owner/filter.js"></script> -->
+<script src="<?= base_url() ?>public/js/owner/range-tgl.js"></script>
+<script src="<?= base_url() ?>public/js/owner/range-out.js"></script>
 
 <script src="<?= base_url() ?>public/js/sweetalert2@11.js"></script>
 <script src="<?= base_url() ?>public/js/myscript.js"></script>

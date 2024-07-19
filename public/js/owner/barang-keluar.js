@@ -14,7 +14,7 @@ $(document).ready(function() {
     });
 
 
-    $('#createBarangMasuk').submit(function(e) {
+    $('#createBarangKeluar').submit(function(e) {
         e.preventDefault(); 
     
         var formData = $(this).serialize();
@@ -50,7 +50,7 @@ $(document).ready(function() {
             return;
         }
 
-        $('#btnSaveBarangMasuk').prop('disabled', true).html('Simpan proses....');
+        $('#btnSaveBarangKeluar').prop('disabled', true).html('Simpan proses....');
 
         $.ajax({
             type: 'POST',
@@ -59,7 +59,7 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(response) {
                 if (response.status == 'success') {
-                    $('#btnSaveBarangMasuk').prop('disabled', false).html('Simpan');
+                    $('#btnSaveBarangKeluar').prop('disabled', false).html('Simpan');
                     Swal.fire({
                         icon: 'success',
                         title: 'Success!',

@@ -27,7 +27,8 @@
                  <li class="nav-item">
                      <a href="<?= base_url('apps-kasir') ?>" class="nav-link <?= $this->uri->segment(1) == 'apps-kasir' ? 'active' : ''
                                                                                 ?>">
-                         <i class="nav-icon fas fa-shopping-cart"></i>
+                         <!-- <i class="nav-icon fas fa-shopping-cart"></i> -->
+                         <i class="nav-icon fas fa-cash-register"></i>
                          <p>
                              Transaksi
                          </p>

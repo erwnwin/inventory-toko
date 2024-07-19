@@ -45,10 +45,10 @@
                                              </td>
                                              <td>
                                                  <div class="form-group">
-                                                     <select name="customer" id="customer_id" class="form-control">
+                                                     <select name="customer" id="id_customer" class="form-control">
                                                          <option value="" selected>Umum</option>
                                                          <?php foreach ($customer as $c) { ?>
-                                                             <option value="<?= $c->customer_id; ?>"><?= $c->name; ?></option>
+                                                             <option value="<?= $c->id_customer; ?>"><?= $c->name; ?></option>
                                                          <?php } ?>
                                                      </select>
                                                  </div>
@@ -68,10 +68,10 @@
                                              </td>
                                              <td>
                                                  <div class="form-group input-group">
-                                                     <input type="hidden" id="item_id">
+                                                     <input type="hidden" id="id_item">
                                                      <input type="hidden" id="price">
                                                      <input type="hidden" id="stock">
-                                                     <input type="text" name="barcode" id="barcode" class="form-control" aria-describedby="basic">
+                                                     <input type="text" name="barcode" id="barcode" class="form-control" aria-describedby="basic" placeholder="Klik icon search">
                                                      <div class="input-group-append">
                                                          <span>
                                                              <button type="button" class="input-group-text btn btn-info btn-flat form-control" data-toggle="modal" data-target="#modal-item"><i class="fa fa-search" id="basic"></i></button>
@@ -231,13 +231,13 @@
                                  </div>
                              </div>
                          </div>
-                         <div class="col-lg-3">
+                         <div class="col-lg-3 mt-4">
                              <div>
-                                 <button id="cancel_payment" class="btn btn-flat btn-warning" style="color: white;">
-                                     <i class="fa fa-recycle"></i> Cancel
-                                 </button><br><br>
-                                 <button id="process_payment" name="process_payment" class="btn btn-flat btn-lg btn-success">
-                                     <i class="fa fa-paper-plane"></i> Process Payment
+                                 <button id="cancel_payment" class="btn btn-flat btn-block btn-warning" style="color: white;">
+                                     <i class="fa fa-recycle"></i> Atur Ulang Inputan Pembayaran
+                                 </button><br>
+                                 <button id="process_payment" name="process_payment" class="btn btn-flat btn-md btn-block btn-success">
+                                     <i class="fa fa-paper-plane"></i> Proses Pembayaran
                                  </button>
 
                              </div>
@@ -245,6 +245,10 @@
 
                      </div>
 
+                 </div>
+
+                 <div>
+                     <br>
                  </div>
              </section>
 
@@ -275,12 +279,12 @@
                                          <?php foreach ($item as $i) { ?>
                                              <tr>
                                                  <td><?= $i->barcode; ?></td>
-                                                 <td><?= $i->name; ?></td>
+                                                 <td><?= $i->nama_produk; ?></td>
                                                  <td style="text-align: center;"><?= $i->name_unit; ?></td>
                                                  <td style="text-align: center;"><?= indo_currency($i->price); ?></td>
                                                  <td><?= $i->stock; ?></td>
                                                  <td align="center">
-                                                     <button class="btn btn-xs btn-info" id="select" data-id="<?= $i->item_id; ?>" data-barcode="<?= $i->barcode; ?>" data-price="<?= $i->price; ?>" data-stock="<?= $i->stock; ?>">
+                                                     <button class="btn btn-xs btn-info" id="select" data-id="<?= $i->id_item; ?>" data-barcode="<?= $i->barcode; ?>" data-price="<?= $i->price; ?>" data-stock="<?= $i->stock; ?>">
                                                          <i class="fa fa-check"></i> Select
                                                      </button>
                                                  </td>

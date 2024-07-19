@@ -37,14 +37,42 @@ $(document).ready(function() {
         var price = $('#price').val().trim();
 
         // Check if fields are empty
-        if (gambar === '' || nama_produk === '' || id_kategori === '' || id_unit === '' || price === '') {
+        if (nama_produk === '') {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'Semua form wajib diisi!'
+                text: 'Nama Product wajib diisi!'
             });
             return;
-        }
+        } else if (id_kategori === '') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Kategori wajib diisi!'
+            });
+            return;
+        } else if (id_unit === '') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Unit wajib diisi!'
+            });
+            return;
+        } else if (price === '') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Harga wajib diisi!'
+            });
+            return;
+        } else if (gambar === '') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Gambar wajib diisi!'
+            });
+            return;
+        } 
 
         $('#btnSaveItem').prop('disabled', true).html('Simpan proses....');
 

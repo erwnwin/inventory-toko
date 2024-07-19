@@ -51,7 +51,7 @@
                          </p>
                      </a>
                  </li>
-
+                 
 
                  <li class="nav-header">Owner</li>
                  <li class="nav-item <?= $this->uri->segment(1) == 'barang-masuk' || $this->uri->segment(1) == 'barang-keluar' ? 'menu-open' : '' ?>">

@@ -16,11 +16,11 @@ if ($cart->num_rows() > 0) {
             </td>
             <td id="total"><?= $c->total; ?></td>
             <td class="text-center" width="160px">
-                <a onclick="editData(<?= $c->cart_id; ?>)" class="btn btn-xs btn-primary" style="color: white;">
+                <a onclick="editData(<?= $c->id_cart; ?>)" class="btn btn-xs btn-primary" style="color: white;">
                     <i class="fa fa-edit"></i> Update
                 </a>
-                <form action="<?= site_url('sales/cart_del') ?>" method="POST" class="d-inline">
-                    <input type="hidden" name="cart_id" value="<?= $c->cart_id; ?>">
+                <form action="<?= site_url('apps-kasir/cart-del') ?>" method="POST" class="d-inline">
+                    <input type="hidden" name="id_cart" value="<?= $c->id_cart; ?>">
                     <button class="btn btn-danger btn-xs tombol-hapus" type="submit">
                         <i class="fa fa-trash"></i> Delete
                     </button>
@@ -54,7 +54,7 @@ if ($cart->num_rows() > 0) {
                         <input type="text" id="barcode_name" name="barcode_name" class="form-control" readonly>
                         <br><br>
                         <input type="text" id="product_name" class="form-control" readonly>
-                        <input type="hidden" name="cart_id" id="cart_id">
+                        <input type="hidden" name="id_cart" id="id_cart">
                         <input type="hidden" name="cart_item" id="cart_item">
                         <input type="hidden" name="old_qty" id="old_qty">
                     </div>
@@ -93,12 +93,12 @@ if ($cart->num_rows() > 0) {
 </div>
 
 <script>
-    function editData(cart_id) {
+    function editData(id_cart) {
         $.ajax({
             type: "POST",
             url: "<?= site_url('apps-kasir/edit'); ?>",
             data: {
-                cart_id: cart_id
+                id_cart: id_cart
             },
             success: function(result) {
                 $('#barcode_name').val(result['barcode']);
@@ -107,7 +107,7 @@ if ($cart->num_rows() > 0) {
                 $('#item_qty').val(result['qty']);
                 $('#item_discount').val(result['discount_item']);
                 $('#item_total').val(result['total']);
-                $('#cart_id').val(result['cart_id']);
+                $('#id_cart').val(result['id_cart']);
                 $('#cart_item').val(result['cart_item']);
                 $('#old_qty').val(result['qty']);
 
