@@ -18,17 +18,27 @@ class M_sale extends CI_Model
         return $invoice;
     }
 
-    public function get_cart($params = null)
+    // public function get_cart($params = null)
+    // {
+    //     $this->db->select('*,produk_item.barcode, produk_item.nama_produk as item_name, tbl_cart.price as cart_price');
+    //     $this->db->from('tbl_cart');
+    //     $this->db->join('produk_item', 'tbl_cart.id_item=produk_item.id_item');
+    //     if ($params != null) {
+    //         $this->db->where($params);
+    //     }
+    //     $this->db->where('id_user', 1);
+    //     $query = $this->db->get();
+    //     return $query;
+    // }
+    public function get_cart($where = array())
     {
         $this->db->select('*,produk_item.barcode, produk_item.nama_produk as item_name, tbl_cart.price as cart_price');
         $this->db->from('tbl_cart');
         $this->db->join('produk_item', 'tbl_cart.id_item=produk_item.id_item');
-        if ($params != null) {
-            $this->db->where($params);
+        if (!empty($where)) {
+            $this->db->where($where);
         }
-        $this->db->where('id_user', 1);
-        $query = $this->db->get();
-        return $query;
+        return $this->db->get();
     }
 
     public function add_sale($post)
@@ -51,9 +61,10 @@ class M_sale extends CI_Model
         return $this->db->insert_id();
     }
 
-    public function add_sale_detail($data)
+    public function add_sale_detail($batch_data)
     {
-        $this->db->insert_batch('tbl_sale_detail', $data);
+        $this->db->insert('tbl_sale_detail', $batch_data);
+        return $this->db->affected_rows() > 0;
     }
 
     public function get($id = null)

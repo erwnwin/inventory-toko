@@ -5,7 +5,7 @@
                  <div class="container-fluid">
                      <div class="row mb-2">
                          <div class="col-sm-6">
-                             <h1>Barang Masuk</h1>
+                             <h1>History Transaksi</h1>
                          </div>
                      </div>
                  </div><!-- /.container-fluid -->
@@ -20,7 +20,7 @@
                          <div class="card-header">
                              <div class="card-title">
 
-                                 <form id="filterForm">
+                                 <form>
                                      <div class="input-group input-group-sm">
                                          <input type="date" class="form-control" id="tanggal_mulai" name="tanggal_mulai">
                                          <input type="date" class="form-control" id="tanggal_selesai" name="tanggal_selesai">
@@ -37,10 +37,10 @@
                              </div>
 
 
-                             <div class="card-tools">
-                                 <!-- <button type="button" id="refreshButton" class="btn btn-sm btn-info"><i class="fas fa-sync fa-spin"></i> Show All Data</button> -->
+                             <!-- <div class="card-tools">
+                                 <button type="button" id="refreshButton" class="btn btn-sm btn-info"><i class="fas fa-sync fa-spin"></i> Show All Data</button>
                                  <a href="<?= base_url('barang-masuk/create') ?>" class="btn btn-sm btn-primary"><i class="fa fa-plus-circle"></i> Create</a>
-                             </div>
+                             </div> -->
                          </div>
                          <!-- /.card-header -->
                          <div class="card-body">
@@ -59,33 +59,10 @@
                                          <th>Action</th>
                                      </tr>
                                  </thead>
-                                 <tbody id="filteredData">
+                                 <tbody>
 
 
-                                     <?php if (!empty($stock)) { ?>
-                                         <?php foreach ($stock as $index => $item) : ?>
-                                             <tr>
-                                                 <td><?= ($index + 1) ?></td>
-                                                 <td><?= $item->barcode ?></td>
-                                                 <td><?= $item->nama_item ?></td>
-                                                 <td><?= $item->detail ?></td>
-                                                 <td><?= $item->qty ?></td>
-                                                 <td><?= tanggal_indonesia_lengkap($item->date) ?></td>
-                                                 <td>
-                                                     <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#modalUpdateIn"> Update</button>
-                                                     <form action="<?= base_url('barang-masuk/delete') ?>" method="post" class="d-inline">
-                                                         <input type="hidden" name="id_stock" value="<?= $item->id_stock ?>">
-                                                         <input type="hidden" name="id_item" value="<?= $item->id_item ?>">
-                                                         <button class="btn btn-outline-danger btn-sm tombol-hapus" type="submit">Delete</button>
-                                                     </form>
-                                                 </td>
-                                             </tr>
-                                         <?php endforeach; ?>
-                                     <?php } else { ?>
-                                         <tr>
-                                             <td colspan="7" class="text-center">Tidak ada data yang tersedia....</td>
-                                         </tr>
-                                     <?php } ?>
+
                                  </tbody>
                              </table>
                          </div>

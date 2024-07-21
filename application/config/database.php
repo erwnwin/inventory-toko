@@ -74,41 +74,17 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 // local DB
-// $db['default'] = array(
-// 	'dsn'	=> '',
-// 	'hostname' => '127.0.0.1:3307',
-// 	'username' => 'root',
-// 	'password' => '',
-// 	'database' => 'tk_fadhil',
-// 	'dbdriver' => 'mysqli',
-// 	'dbprefix' => '',
-// 	'pconnect' => FALSE,
-// 	// 'db_debug' => (ENVIRONMENT !== 'production'),
-// 	'db_debug' => FALSE,
-// 	'cache_on' => FALSE,
-// 	'cachedir' => '',
-// 	'char_set' => 'utf8',
-// 	'dbcollat' => 'utf8_general_ci',
-// 	'swap_pre' => '',
-// 	'encrypt' => FALSE,
-// 	'compress' => FALSE,
-// 	'stricton' => FALSE,
-// 	'failover' => array(),
-// 	'save_queries' => TRUE
-// );
-
-
-// server DB
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'hvsteofj_root',
-	'password' => '@Erwin2024#',
-	'database' => 'hvsteofj_op_fadhel',
+	'hostname' => '127.0.0.1:3307',
+	'username' => 'root',
+	'password' => '',
+	'database' => 'tk_fadhil',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
-	'db_debug' => (ENVIRONMENT !== 'production'),
+	// 'db_debug' => (ENVIRONMENT !== 'production'),
+	'db_debug' => FALSE,
 	'cache_on' => FALSE,
 	'cachedir' => '',
 	'char_set' => 'utf8',
@@ -116,7 +92,31 @@ $db['default'] = array(
 	'swap_pre' => '',
 	'encrypt' => FALSE,
 	'compress' => FALSE,
-	'stricton' => TRUE,
+	'stricton' => FALSE,
 	'failover' => array(),
 	'save_queries' => TRUE
 );
+
+
+// server DB
+// $db['default'] = array(
+// 	'dsn'	=> '',
+// 	'hostname' => 'localhost',
+// 	'username' => 'hvsteofj_root',
+// 	'password' => '@Erwin2024#',
+// 	'database' => 'hvsteofj_op_fadhel',
+// 	'dbdriver' => 'mysqli',
+// 	'dbprefix' => '',
+// 	'pconnect' => FALSE,
+// 	'db_debug' => (ENVIRONMENT !== 'production'),
+// 	'cache_on' => FALSE,
+// 	'cachedir' => '',
+// 	'char_set' => 'utf8',
+// 	'dbcollat' => 'utf8_general_ci',
+// 	'swap_pre' => '',
+// 	'encrypt' => FALSE,
+// 	'compress' => FALSE,
+// 	'stricton' => TRUE,
+// 	'failover' => array(),
+// 	'save_queries' => TRUE
+// );

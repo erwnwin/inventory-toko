@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>myPos</title>
+    <title>Print Invoice Transaksi</title>
     <style type="text/css">
         html {
             font-family: "Verdana, Arial";

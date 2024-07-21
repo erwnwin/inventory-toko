@@ -35,6 +35,17 @@
                      </a>
                  </li>
 
+                 <li class="nav-item">
+                     <a href="<?= base_url('history-transaksi') ?>" class="nav-link <?= $this->uri->segment(1) == 'history-transaksi' ? 'active' : ''
+                                                                                    ?>">
+                         <!-- <i class="nav-icon fas fa-shopping-cart"></i> -->
+                         <i class="nav-icon fas fa-file-alt"></i>
+                         <p>
+                             History Transaksi
+                         </p>
+                     </a>
+                 </li>
+
 
                  <li class="nav-item">
                      <a href="<?= base_url('logout') ?>" class="nav-link">

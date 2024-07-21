@@ -108,7 +108,8 @@ $route['apps-kasir/update'] = 'staf/app_kasir/update';
 $route['apps-kasir/edit'] = 'staf/app_kasir/edit';
 $route['apps-kasir/print/(:num)'] = 'staf/app_kasir/print/$1';
 
-
+// history-transaksi
+$route['history-transaksi'] = 'staf/history_transaksi';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

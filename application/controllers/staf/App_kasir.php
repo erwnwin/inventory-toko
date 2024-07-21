@@ -70,20 +70,34 @@ class App_kasir extends CI_Controller
         if (isset($_POST['process_payment'])) {
             $id_sale = $this->m_sale->add_sale($post);
             $cart = $this->m_sale->get_cart()->result();
-            $row = [];
+            // $row = [];
+
 
             foreach ($cart as $c) {
-                $row[] = array(
-                    'id_sale' => $id_sale,
-                    'id_item' => $c->id_item,
-                    'price' => $c->cart_price,
-                    'qty' => $c->qty,
-                    'discount_item' => $c->discount_item,
-                    'total' => $c->total
+                $this->m_sale->add_sale_detail(
+                    [
+                        'id_sale' => $id_sale,
+                        'id_item' => $c->id_item,
+                        'price' => $c->cart_price,
+                        'qty' => $c->qty,
+                        'discount_item' => $c->discount_item,
+                        'total' => $c->total
+                    ]
                 );
             }
 
-            $this->m_sale->add_sale_detail($row);
+            // foreach ($cart as $c) {
+            //     $row[] = array(
+            //         'id_sale' => $id_sale,
+            //         'id_item' => $c->id_item,
+            //         'price' => $c->cart_price,
+            //         'qty' => $c->qty,
+            //         'discount_item' => $c->discount_item,
+            //         'total' => $c->total
+            //     );
+            // }
+
+            // $this->m_sale->add_sale_detail($row);
             // $this->db->insert_batch('tbl_sale_detail', $row);
             // $this->m_sale->del_cart(['id_user' => $this->session->userdata('userid')]);
             $this->m_sale->del_cart(['id_user' => 1]);
@@ -96,6 +110,74 @@ class App_kasir extends CI_Controller
             echo json_encode($params);
         }
     }
+
+    // public function process()
+    // {
+    //     $post = $this->input->post(null, true);
+
+    //     if (isset($_POST['add_cart'])) {
+    //         $id_item = $this->input->post('id_item');
+    //         $qty = $this->input->post('qty');
+
+    //         // Cek apakah item sudah ada di keranjang
+    //         $cek_cart = $this->m_sale->get_cart(['tbl_cart.id_item' => $id_item]);
+    //         if ($cek_cart->num_rows() > 0) {
+    //             // Jika sudah ada, update kuantitas (qty)
+    //             $this->m_sale->update_cart_qty($post);
+    //         } else {
+    //             // Jika belum ada, tambahkan item ke keranjang
+    //             $this->m_sale->add_cart($post);
+    //         }
+
+    //         // Update stok item
+    //         $get_item = $this->m_item->get($id_item)->row_array();
+    //         $stok = intval($get_item['stock'] - $qty);
+
+    //         $data = [
+    //             'stock' => $stok,
+    //             'updated' => date('Y-m-d H:i:s')
+    //         ];
+
+    //         $this->db->where('id_item', $id_item);
+    //         $this->db->update('produk_item', $data);
+
+    //         if ($this->db->affected_rows() > 0) {
+    //             $params = array("success" => true);
+    //         } else {
+    //             $params = array("success" => false);
+    //         }
+    //         echo json_encode($params);
+    //     }
+
+
+    //     if (isset($_POST['process_payment'])) {
+    //         $id_sale = $this->m_sale->add_sale($post);
+    //         $cart = $this->m_sale->get_cart()->result();
+
+    //         // Loop untuk menambahkan detail penjualan (sale detail)
+    //         foreach ($cart as $c) {
+    //             $this->m_sale->add_sale_detail([
+    //                 'id_sale' => $id_sale,
+    //                 'id_item' => $c->id_item,
+    //                 'price' => $c->cart_price,
+    //                 'qty' => $c->qty,
+    //                 'discount_item' => $c->discount_item,
+    //                 'total' => $c->total
+    //             ]);
+    //         }
+
+
+    //         $this->m_sale->del_cart(['id_user' => 1]);
+
+    //         if ($this->db->affected_rows() > 0) {
+    //             $params = array("success" => true, "id_sale" => $id_sale);
+    //         } else {
+    //             $params = array("success" => false);
+    //         }
+    //         echo json_encode($params);
+    //     }
+    // }
+
 
     public function edit()
     {

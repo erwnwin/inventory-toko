@@ -2,7 +2,7 @@
     <div class="float-right d-none d-sm-block">
         Anything you want
     </div>
-    Copyright &copy; 2024 <a href="https://winartcode.my.id"> ~ WinArt&code</a>
+    Copyright &copy; 2024 <a href="#"> ~ Titik Balik Teknologi</a>
 </footer>
 
 <!-- Control Sidebar -->

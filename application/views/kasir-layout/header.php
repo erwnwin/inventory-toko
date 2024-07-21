@@ -20,12 +20,12 @@
                  <span class="dropdown-item dropdown-header text-bold text-solid">Direct Menu</span>
 
                  <div class="dropdown-divider"></div>
+                 <a href="<?= base_url('dashboard') ?>" class="dropdown-item">
+                     <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
+                 </a>
                  <a href="<?= base_url('logout') ?>" class="dropdown-item">
                      <i class="fas fa-power-off mr-2"></i> Logout
-
                  </a>
-
-
              </div>
          </li>
 
