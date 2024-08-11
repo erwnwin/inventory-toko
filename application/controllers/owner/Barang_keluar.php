@@ -18,7 +18,17 @@ class Barang_keluar extends CI_Controller
     {
         $data['title'] = 'Barang Keluar : Optik Fadhel';
 
-        $data['stock'] = $this->m_stok->get_stock_out()->result();
+        // $data['stock'] = $this->m_stok->get_stock_out()->result();
+
+        $start_date = $this->input->get('tanggal_mulai');
+        $end_date = $this->input->get('tanggal_selesai');
+
+        // Mengambil data dengan filter tanggal jika ada
+        if ($start_date && $end_date) {
+            $data['stock'] = $this->m_stok->get_filtered_data_out($start_date, $end_date);
+        } else {
+            $data['stock'] = $this->m_stok->get_stock_out(); // Ambil semua data jika tidak ada filter
+        }
 
         $this->load->view('layouts/head', $data);
         $this->load->view('layouts/header', $data);

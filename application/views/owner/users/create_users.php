@@ -64,6 +64,7 @@
                                                          <option value="admin">Admin</option>
                                                          <option value="owner">Owner Toko</option>
                                                          <option value="petugas">Petugas Toko</option>
+                                                         <option value="kasir">Kasir</option>
                                                      </select>
                                                  </div>
                                              </div>

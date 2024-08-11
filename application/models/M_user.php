@@ -55,6 +55,19 @@ class M_user extends CI_Model
 
         return ($this->db->affected_rows() > 0);
     }
+
+    public function login($email, $password)
+    {
+        $this->db->where('email', $email);
+        $this->db->where('password', $password); // Assuming passwords are hashed with MD5
+        $query = $this->db->get('tbl_users');
+
+        if ($query->num_rows() == 1) {
+            return $query->row(); // Return user data
+        } else {
+            return false; // Invalid credentials
+        }
+    }
 }
 
 /* End of file M_user.php */

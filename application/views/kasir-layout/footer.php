@@ -2,9 +2,8 @@
     <div class="float-right d-none d-sm-block">
         Anything you want
     </div>
-    Copyright &copy; 2024 <a href="https://winartcode.my.id"> ~ WinArt&code</a>
+    Copyright &copy; 2024 <a href="#"> ~ Titik Balik Teknologi</a>
 </footer>
-
 <!-- Control Sidebar -->
 <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
@@ -477,6 +476,209 @@
         });
     });
 </script>
+
+<!-- <script>
+    $(document).ready(function() {
+        // Initialize date and time fields
+        $('#date').val(new Date().toISOString().split('T')[0]);
+        $('#jam_penjualan').val(new Date().toLocaleTimeString([], {
+            hour: '2-digit',
+            minute: '2-digit'
+        }));
+
+        $('#nama_barang').on('change', function() {
+            const namaProduk = $(this).val();
+            if (namaProduk) {
+                $.ajax({
+                    url: 'apps-kasir/get-all-barang',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        nama_barang: namaProduk
+                    },
+                    success: function(data) {
+                        if (data) {
+                            $('#barcode').val(data.barcode);
+                            $('#price').val(data.price);
+                            $('#max_hidden').val(data.stock);
+                            $('#jumlah').val(1).prop('readonly', false);
+                            $('#sub_total').val((data.price * 1).toFixed(2));
+                            $('#tambah').prop('disabled', false);
+                        }
+                    }
+                });
+            } else {
+                resetForm();
+            }
+        });
+
+        $('#jumlah').on('input', function() {
+            const price = parseFloat($('#price').val());
+            const jumlah = parseInt($(this).val());
+            const subTotal = price * jumlah;
+            $('#sub_total').val(subTotal.toFixed(2));
+        });
+
+        $('#tambah').on('click', function() {
+            const namaProduk = $('#nama_barang').val();
+            const price = parseFloat($('#price').val());
+            const jumlah = parseInt($('#jumlah').val());
+            const maxStock = parseInt($('#max_hidden').val());
+            const subTotal = parseFloat($('#sub_total').val());
+
+            if (jumlah > maxStock) {
+                Swal.fire('Error', 'Stok tidak mencukupi.', 'error');
+                return;
+            }
+
+            let productExists = false;
+
+            $('#keranjang tbody tr').each(function() {
+                const rowNamaProduk = $(this).find('.nama_barang').text().trim();
+                if (rowNamaProduk === namaProduk) {
+                    const currentJumlah = parseInt($(this).find('.jumlah').text().trim());
+                    $(this).find('.jumlah').text(currentJumlah + jumlah);
+                    $(this).find('input[name="jumlah_hidden[]"]').val(currentJumlah + jumlah);
+                    $(this).find('.sub_total').text((price * (currentJumlah + jumlah)).toFixed(2));
+                    $(this).find('input[name="sub_total_hidden[]"]').val((price * (currentJumlah + jumlah)).toFixed(2));
+                    productExists = true;
+                    return false; // Exit the each loop
+                }
+            });
+
+            if (!productExists) {
+                $('#keranjang tbody').append(`
+                <tr class="row-keranjang">
+                    <td class="nama_barang">${namaProduk}
+                        <input type="hidden" name="nama_barang_hidden[]" value="${namaProduk}">
+                    </td>
+                    <td class="harga_barang">${price}
+                        <input type="hidden" name="harga_barang_hidden[]" value="${price}">
+                    </td>
+                    <td class="jumlah">${jumlah}
+                        <input type="hidden" name="jumlah_hidden[]" value="${jumlah}">
+                    </td>
+                    <td class="sub_total">${subTotal}
+                        <input type="hidden" name="sub_total_hidden[]" value="${subTotal}">
+                    </td>
+                    <td class="aksi">
+                        <button type="button" class="btn btn-danger btn-sm" id="tombol-hapus" data-nama-barang="${namaProduk}">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `);
+            }
+
+            updateTotal();
+            resetForm();
+        });
+
+        $(document).on('click', '#tombol-hapus', function() {
+            $(this).closest('tr').remove();
+            updateTotal();
+        });
+
+        $('input[name="cash"]').on('input', function() {
+            const grandTotal = parseFloat($('#grand_total_display').val());
+            const cash = parseFloat($(this).val());
+            if (!isNaN(cash)) {
+                $('#kembalian').val((cash - grandTotal).toFixed(2));
+            }
+        });
+
+        $('#form-tambah').on('submit', function(e) {
+            e.preventDefault();
+            const grandTotal = parseFloat($('#grand_total_display').val());
+            const cash = parseFloat($('input[name="cash"]').val());
+
+            if ($('#keranjang tbody tr').length === 0) {
+                Swal.fire('Error', 'Harap pilih barang terlebih dahulu.', 'error');
+                return;
+            }
+
+            if (isNaN(cash) || cash <= 0) {
+                Swal.fire('Warning', 'Harap isi jumlah uang tunai.', 'warning');
+                return;
+            }
+
+            if (cash < grandTotal) {
+                Swal.fire('Warning', 'Uang tunai tidak mencukupi. Harap cek kembali jumlah uang tunai Anda.', 'warning');
+                return;
+            }
+
+            Swal.fire({
+                title: 'Konfirmasi Pembayaran',
+                text: `Total pembayaran adalah ${grandTotal.toFixed(2)}. Apakah Anda yakin?`,
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, bayar',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    submitForm();
+                }
+            });
+        });
+
+        function submitForm() {
+            updateDetailsHidden();
+            $.ajax({
+                url: 'apps-kasir/store',
+                type: 'POST',
+                data: $('#form-tambah').serialize(),
+                dataType: 'json', // Ensure response is in JSON format
+                success: function(response) {
+                    Swal.fire(response.message, '', response.success ? 'success' : 'error');
+                    if (response.success) {
+                        location.reload();
+                    }
+                }
+            });
+        }
+
+        function updateTotal() {
+            let total = 0;
+            $('#keranjang tbody tr').each(function() {
+                const subTotal = parseFloat($(this).find('.sub_total').text());
+                total += subTotal;
+            });
+            $('#total').text(total.toFixed(2));
+            $('#grand_total_display').val(total.toFixed(2));
+            $('#kembalian').val((parseFloat($('input[name="cash"]').val()) - total).toFixed(2));
+
+            if (total > 0) {
+                $('#form-tambah').find('button[type="submit"]').show();
+            } else {
+                $('#form-tambah').find('button[type="submit"]').hide();
+            }
+        }
+
+        function updateDetailsHidden() {
+            const details = [];
+            $('#keranjang tbody tr').each(function() {
+                details.push({
+                    nama_barang: $(this).find('.nama_barang').text(),
+                    harga_barang: $(this).find('.harga_barang').text(),
+                    jumlah: $(this).find('.jumlah').text(),
+                    sub_total: $(this).find('.sub_total').text()
+                });
+            });
+            $('#details_hidden').val(JSON.stringify(details));
+        }
+
+        function resetForm() {
+            $('#nama_barang').val('');
+            $('#barcode').val('');
+            $('#price').val('');
+            $('#jumlah').val('');
+            $('#sub_total').val('');
+            $('#jumlah').prop('readonly', true);
+            $('#tambah').prop('disabled', true);
+        }
+    });
+</script> -->
+
 </body>
 
 </html>

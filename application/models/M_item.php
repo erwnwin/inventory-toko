@@ -18,6 +18,48 @@ class M_item extends CI_Model
         return $query;
     }
 
+
+    public function get_filter($id = null)
+    {
+        $this->db->select('produk_item.*, produk_item.stock, produk_category.nama_kategori as name_category, produk_unit.nama_unit as name_unit');
+        $this->db->from('produk_item');
+        $this->db->join('produk_category', 'produk_item.id_kategori = produk_category.id_kategori');
+        $this->db->join('produk_unit', 'produk_item.id_unit = produk_unit.id_unit');
+        if ($id != null) {
+            $this->db->where('id_item', $id);
+        }
+        $this->db->order_by('barcode', 'ASC');
+        $query = $this->db->get();
+        return $query->result_array(); // Mengembalikan data sebagai array
+    }
+
+    public function get_filter2($id = null)
+    {
+        // Menentukan kolom yang akan diambil dari tabel
+        $this->db->select('produk_item.*, produk_item.stock, produk_category.nama_kategori as name_category, produk_unit.nama_unit as name_unit');
+
+        // Menentukan tabel utama
+        $this->db->from('produk_item');
+
+        // Menggabungkan tabel lain
+        $this->db->join('produk_category', 'produk_item.id_kategori = produk_category.id_kategori');
+        $this->db->join('produk_unit', 'produk_item.id_unit = produk_unit.id_unit');
+
+        // Jika ID produk diterima, tambahkan kondisi WHERE
+        if ($id != null) {
+            $this->db->where('produk_item.id_item', $id); // Menentukan ID item dari tabel produk_item
+        }
+
+        // Mengurutkan data berdasarkan barcode
+        $this->db->order_by('produk_item.barcode', 'ASC');
+
+        // Menjalankan query dan mendapatkan hasil
+        $query = $this->db->get();
+
+        // Mengembalikan hasil query sebagai array
+        return $query->result_array();
+    }
+
     public function save_data($data)
     {
         return $this->db->insert('produk_item', $data);
@@ -127,5 +169,44 @@ class M_item extends CI_Model
         }
 
         return $new_code;
+    }
+
+    public function get_stock($id_item)
+    {
+        $this->db->select('stock');
+        $this->db->from('produk_item'); // Ganti dengan nama tabel item Anda
+        $this->db->where('id_item', $id_item);
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            $row = $query->row();
+            return $row->stock; // Mengembalikan nilai stok
+        } else {
+            return 0; // Jika item tidak ditemukan, kembalikan 0
+        }
+    }
+
+    // Mendapatkan item dengan detail dan join
+    public function get_all_items($id = null)
+    {
+        $this->db->select('produk_item.*, produk_item.stock, produk_category.nama_kategori as name_category, produk_unit.nama_unit as name_unit');
+        $this->db->from('produk_item');
+        $this->db->join('produk_category', 'produk_item.id_kategori = produk_category.id_kategori');
+        $this->db->join('produk_unit', 'produk_item.id_unit = produk_unit.id_unit');
+
+        // Jika ID tidak null, tambahkan kondisi WHERE
+        if ($id !== null) {
+            $this->db->where('produk_item.id_item', $id);
+        }
+
+        $this->db->order_by('produk_item.barcode', 'ASC');
+        $query = $this->db->get();
+
+        // Jika ID disediakan, kembalikan baris tunggal, jika tidak kembalikan array hasil
+        if ($id !== null) {
+            return $query->row_array(); // Kembalikan data item yang spesifik
+        } else {
+            return $query->result_array(); // Kembalikan semua data item
+        }
     }
 }

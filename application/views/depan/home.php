@@ -12,7 +12,7 @@
     <!-- ===============================================-->
     <!--    Document Title-->
     <!-- ===============================================-->
-    <title>Productly | Design Agency Landing Page UI</title>
+    <title><?= $title ?></title>
     <meta content="WinArtCode" name="Erwin, S.Kom" />
     <!-- App favicon -->
 
@@ -344,7 +344,7 @@
                 <div class="container border-top py-3">
                     <div class="row justify-content-between">
                         <div class="col-12 col-md-auto mb-1 mb-md-0">
-                            <p class="mb-0">&copy; 2024 <a href="https://winartcode.my.id" target="_blank">WinArt&Code</a> </p>
+                            <p class="mb-0">&copy; 2024 <a href="#" target="_blank">Titik Balik Teknologi</a> </p>
                         </div>
                         <div class="col-12 col-md-auto">
                             <p class="mb-0">

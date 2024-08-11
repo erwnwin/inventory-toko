@@ -13,7 +13,7 @@
          <!-- Notifications Dropdown Menu -->
          <li class="nav-item dropdown">
              <a class="nav-link font-weight-bold text-black" style="color: black;" data-toggle="dropdown" href="#">
-                 <i class="far fa-user-circle"></i> <i class="fas fa-dash"></i> Coba
+                 <i class="far fa-user-circle"></i> <i class="fas fa-dash"></i> <?= $this->session->userdata('nama_user'); ?>
              </a>
 
              <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">

@@ -58,46 +58,7 @@
                          </div>
                          <!-- /.card-header -->
                          <div class="card-body">
-                             <!-- <div class="table-responsive">
-                                 <table class="table">
-                                     <thead>
-                                         <tr>
-                                             <th style="width: 10px">#</th>
-                                             <th>Barcode</th>
-                                             <th>Nama Produk</th>
-                                             <th>Detail</th>
-                                             <th>Qty</th>
-                                             <th>Tanggal</th>
-                                             <th style="width: 130px">Action</th>
-                                         </tr>
-                                     </thead>
-                                     <tbody>
-                                         <?php
-                                            $no = 1;
-                                            foreach ($stock as $item) { ?>
-                                             <tr>
-                                                 <td><?= $no++; ?></td>
-                                                 <td><?= $item->barcode ?></td>
-                                                 <td><?= $item->nama_item ?></td>
-                                                 <td><?= $item->detail ?></td>
-                                                 <td><?= $item->qty ?></td>
-                                                 <td><?= tanggal_indonesia_lengkap($item->date) ?></td>
-                                                 <td>
 
-                                                     <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#confirmDeleteModal"> Detail</button>
-                                                     <form action="<?= base_url('barang-masuk/delete') ?>" method="post" class="d-inline">
-                                                         <input type="hidden" name="id_stock" value="<?= $item->id_stock; ?>">
-                                                         <input type="hidden" name="id_item" value="<?= $item->id_item; ?>">
-                                                         <button class="btn btn-outline-danger btn-sm tombol-hapus" type="submit">
-                                                             Delete
-                                                         </button>
-                                                     </form>
-                                                 </td>
-                                             </tr>
-                                         <?php } ?>
-                                     </tbody>
-                                 </table>
-                             </div> -->
 
                              <div id="filteredData">
                                  <?php if (!empty($stock)) : ?>

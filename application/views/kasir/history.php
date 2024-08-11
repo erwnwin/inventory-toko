@@ -20,7 +20,7 @@
                          <div class="card-header">
                              <div class="card-title">
 
-                                 <form>
+                                 <form method="post" action="<?= base_url('history-transaksi/filter'); ?>">
                                      <div class="input-group input-group-sm">
                                          <input type="date" class="form-control" id="tanggal_mulai" name="tanggal_mulai">
                                          <input type="date" class="form-control" id="tanggal_selesai" name="tanggal_selesai">
@@ -43,6 +43,7 @@
                              </div> -->
                          </div>
                          <!-- /.card-header -->
+                         <!-- Tabel untuk menampilkan hasil filter -->
                          <div class="card-body">
                              <div id="loading" style="display: none; text-align: center;">
                                  <img src="<?= base_url('public/gif/load-1.gif') ?>" width="120px" style="position: relative;" alt="" title="Loading.....">
@@ -51,21 +52,42 @@
                                  <thead>
                                      <tr>
                                          <th>#</th>
-                                         <th>Barcode</th>
-                                         <th>Nama Produk</th>
-                                         <th>Detail</th>
-                                         <th>Qty</th>
-                                         <th>Tanggal</th>
-                                         <th>Action</th>
+                                         <th>Invoice</th>
+                                         <th>ID Customer</th>
+                                         <th>Total Price</th>
+                                         <th>Discount</th>
+                                         <th>Final Price</th>
+                                         <th>Cash</th>
+                                         <th>Uang Kembalian</th>
+                                         <th>Note</th>
+                                         <th>Date</th>
                                      </tr>
                                  </thead>
                                  <tbody>
-
-
-
+                                     <?php if (isset($sales) && !empty($sales)): ?>
+                                         <?php foreach ($sales as $index => $sale): ?>
+                                             <tr>
+                                                 <td><?php echo $index + 1; ?></td>
+                                                 <td><?php echo htmlspecialchars($sale->invoice); ?></td>
+                                                 <td><?php echo htmlspecialchars($sale->id_customer); ?></td>
+                                                 <td><?php echo htmlspecialchars($sale->total_price); ?></td>
+                                                 <td><?php echo htmlspecialchars($sale->discount); ?></td>
+                                                 <td><?php echo htmlspecialchars($sale->final_price); ?></td>
+                                                 <td><?php echo htmlspecialchars($sale->cash); ?></td>
+                                                 <td><?php echo htmlspecialchars($sale->uang_kembalian); ?></td>
+                                                 <td><?php echo htmlspecialchars($sale->note); ?></td>
+                                                 <td><?php echo htmlspecialchars($sale->created_at); ?></td>
+                                             </tr>
+                                         <?php endforeach; ?>
+                                     <?php else: ?>
+                                         <tr>
+                                             <td colspan="10" style="text-align: center;">No sales found for the selected date range.</td>
+                                         </tr>
+                                     <?php endif; ?>
                                  </tbody>
                              </table>
                          </div>
+
                      </div>
                  </div>
 

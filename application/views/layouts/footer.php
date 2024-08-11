@@ -57,6 +57,9 @@
 
 <!-- ajax supplier -->
 <script src="<?= base_url() ?>public/js/owner/supplier.js"></script>
+<script src="<?= base_url() ?>public/js/owner/exportku.js"></script>
+<script src="<?= base_url() ?>public/js/owner/stok-produk.js"></script>
+
 
 <!-- ajax barang-masuk -->
 <script src="<?= base_url() ?>public/js/owner/barang-masuk.js"></script>

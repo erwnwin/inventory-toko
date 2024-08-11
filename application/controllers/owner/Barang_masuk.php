@@ -20,12 +20,32 @@ class Barang_masuk extends CI_Controller
 
     public function index()
     {
+        // $data['title'] = 'Barang Masuk : Optik Fadhel';
+
+
+
+        // $data['stock'] = $this->m_stok->get()->result();
+
+        // $this->load->view('layouts/head', $data);
+        // $this->load->view('layouts/header', $data);
+        // $this->load->view('layouts/sidebar', $data);
+        // $this->load->view('owner/barang_masuk/new_masuk', $data);
+        // $this->load->view('layouts/footer', $data);
+
         $data['title'] = 'Barang Masuk : Optik Fadhel';
 
+        // Ambil parameter tanggal dari URL
+        $start_date = $this->input->get('tanggal_mulai');
+        $end_date = $this->input->get('tanggal_selesai');
 
+        // Mengambil data dengan filter tanggal jika ada
+        if ($start_date && $end_date) {
+            $data['stock'] = $this->m_stok->get_filtered_data($start_date, $end_date);
+        } else {
+            $data['stock'] = $this->m_stok->get(); // Ambil semua data jika tidak ada filter
+        }
 
-        $data['stock'] = $this->m_stok->get()->result();
-
+        // Load view dengan data
         $this->load->view('layouts/head', $data);
         $this->load->view('layouts/header', $data);
         $this->load->view('layouts/sidebar', $data);
@@ -172,28 +192,28 @@ class Barang_masuk extends CI_Controller
 
 
 
-    public function filter_data()
-    {
-        $data['title'] = 'Barang Masuk : Optik Fadhel';
+    // public function filter_data()
+    // {
+    //     $data['title'] = 'Barang Masuk : Optik Fadhel';
 
-        // $data['stock'] = $this->m_stok->get();
+    //     // $data['stock'] = $this->m_stok->get();
 
-        $data['bulan'] = date('m'); // Ambil bulan saat ini (format dua digit, misalnya '01' untuk Januari)
-        $data['tahun'] = date('Y'); // Ambil tahun saat ini
+    //     $data['bulan'] = date('m'); // Ambil bulan saat ini (format dua digit, misalnya '01' untuk Januari)
+    //     $data['tahun'] = date('Y'); // Ambil tahun saat ini
 
-        // Jika form telah disubmit, ambil nilai bulan dan tahun dari input post
-        if ($this->input->post()) {
-            $data['bulan'] = $this->input->post('bulan');
-            $data['tahun'] = $this->input->post('tahun');
+    //     // Jika form telah disubmit, ambil nilai bulan dan tahun dari input post
+    //     if ($this->input->post()) {
+    //         $data['bulan'] = $this->input->post('bulan');
+    //         $data['tahun'] = $this->input->post('tahun');
 
-            $data['stock'] = $this->m_filter_in->get_filtered_data($data['bulan'], $data['tahun']);
-            $this->load->view('owner/barang_masuk/filter', $data);
-            // $this->load->view('layouts/_footer', $data);
-        } else {
+    //         $data['stock'] = $this->m_filter_in->get_filtered_data($data['bulan'], $data['tahun']);
+    //         $this->load->view('owner/barang_masuk/filter', $data);
+    //         // $this->load->view('layouts/_footer', $data);
+    //     } else {
 
-            redirect(base_url('barang-masuk'));
-        }
-    }
+    //         redirect(base_url('barang-masuk'));
+    //     }
+    // }
 }
 
 /* End of file Barang_masuk.php */

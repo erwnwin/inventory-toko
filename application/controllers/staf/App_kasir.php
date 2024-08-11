@@ -11,6 +11,10 @@ class App_kasir extends CI_Controller
         parent::__construct();
         $this->load->model('m_sale');
         $this->load->model('m_item');
+        $this->load->model('m_barang');
+        $this->load->model('m_penjualan');
+        $this->load->model('m_detail_penjualan');
+        $this->load->model('kasir_model');
     }
 
 
@@ -22,6 +26,7 @@ class App_kasir extends CI_Controller
         $data['item'] = $this->m_item->get()->result();
         $data['cart'] = $this->m_sale->get_cart();
         $data['invoice'] = $this->m_sale->invoice_no();
+        $data['produk'] = $this->m_barang->lihat_stok();
 
         $this->load->view('kasir-layout/head', $data);
         $this->load->view('kasir-layout/header', $data);
@@ -29,7 +34,6 @@ class App_kasir extends CI_Controller
         $this->load->view('kasir/app_kasir', $data);
         $this->load->view('kasir-layout/footer', $data);
     }
-
 
     public function process()
     {
@@ -69,9 +73,8 @@ class App_kasir extends CI_Controller
 
         if (isset($_POST['process_payment'])) {
             $id_sale = $this->m_sale->add_sale($post);
+            $id_sale = $this->db->insert_id();
             $cart = $this->m_sale->get_cart()->result();
-            // $row = [];
-
 
             foreach ($cart as $c) {
                 $this->m_sale->add_sale_detail(
@@ -86,142 +89,22 @@ class App_kasir extends CI_Controller
                 );
             }
 
-            // foreach ($cart as $c) {
-            //     $row[] = array(
-            //         'id_sale' => $id_sale,
-            //         'id_item' => $c->id_item,
-            //         'price' => $c->cart_price,
-            //         'qty' => $c->qty,
-            //         'discount_item' => $c->discount_item,
-            //         'total' => $c->total
-            //     );
-            // }
+            $this->m_sale->del_cart();
 
-            // $this->m_sale->add_sale_detail($row);
-            // $this->db->insert_batch('tbl_sale_detail', $row);
-            // $this->m_sale->del_cart(['id_user' => $this->session->userdata('userid')]);
-            $this->m_sale->del_cart(['id_user' => 1]);
+            $this->db->trans_complete();
 
-            if ($this->db->affected_rows() > 0) {
-                $params = array("success" => true, "id_sale" => $id_sale);
+            if ($this->db->trans_status() === FALSE) {
+                echo json_encode(['success' => false, 'message' => 'Transaction failed']);
             } else {
-                $params = array("success" => false);
+                echo json_encode(['success' => true, 'id_sale' => $id_sale]); // Ensure id_sale is correctly set here
             }
-            echo json_encode($params);
         }
     }
 
-    // public function process()
-    // {
-    //     $post = $this->input->post(null, true);
-
-    //     if (isset($_POST['add_cart'])) {
-    //         $id_item = $this->input->post('id_item');
-    //         $qty = $this->input->post('qty');
-
-    //         // Cek apakah item sudah ada di keranjang
-    //         $cek_cart = $this->m_sale->get_cart(['tbl_cart.id_item' => $id_item]);
-    //         if ($cek_cart->num_rows() > 0) {
-    //             // Jika sudah ada, update kuantitas (qty)
-    //             $this->m_sale->update_cart_qty($post);
-    //         } else {
-    //             // Jika belum ada, tambahkan item ke keranjang
-    //             $this->m_sale->add_cart($post);
-    //         }
-
-    //         // Update stok item
-    //         $get_item = $this->m_item->get($id_item)->row_array();
-    //         $stok = intval($get_item['stock'] - $qty);
-
-    //         $data = [
-    //             'stock' => $stok,
-    //             'updated' => date('Y-m-d H:i:s')
-    //         ];
-
-    //         $this->db->where('id_item', $id_item);
-    //         $this->db->update('produk_item', $data);
-
-    //         if ($this->db->affected_rows() > 0) {
-    //             $params = array("success" => true);
-    //         } else {
-    //             $params = array("success" => false);
-    //         }
-    //         echo json_encode($params);
-    //     }
 
 
-    //     if (isset($_POST['process_payment'])) {
-    //         $id_sale = $this->m_sale->add_sale($post);
-    //         $cart = $this->m_sale->get_cart()->result();
-
-    //         // Loop untuk menambahkan detail penjualan (sale detail)
-    //         foreach ($cart as $c) {
-    //             $this->m_sale->add_sale_detail([
-    //                 'id_sale' => $id_sale,
-    //                 'id_item' => $c->id_item,
-    //                 'price' => $c->cart_price,
-    //                 'qty' => $c->qty,
-    //                 'discount_item' => $c->discount_item,
-    //                 'total' => $c->total
-    //             ]);
-    //         }
 
 
-    //         $this->m_sale->del_cart(['id_user' => 1]);
-
-    //         if ($this->db->affected_rows() > 0) {
-    //             $params = array("success" => true, "id_sale" => $id_sale);
-    //         } else {
-    //             $params = array("success" => false);
-    //         }
-    //         echo json_encode($params);
-    //     }
-    // }
-
-
-    public function edit()
-    {
-        $id = $this->input->post('id_cart');
-        $data = $this->m_sale->get($id)->row_array();
-        header('Content-Type: application/json');
-        echo json_encode($data);
-        //var_dump($data);
-    }
-
-    public function update()
-    {
-        $post = $this->input->post();
-        $get_item = $this->m_item->get($post['cart_item'])->row_array();
-        $old_qty = $post['old_qty'];
-
-        if ($old_qty > $post['item_qty']) {
-            $stock_qty = $old_qty - $post['item_qty'];
-            $stok = intval($get_item['stock'] + $stock_qty);
-
-            $data = [
-                'stock' => $stok,
-                'updated' => date('Y-m-d H:i:s')
-            ];
-
-            $this->db->where('id_item', $post['cart_item']);
-            $this->db->update('produk_item', $data);
-        } elseif ($old_qty < $post['item_qty']) {
-            $stock_qty = $post['item_qty'] - $old_qty;
-            $stok = intval($get_item['stock'] - $stock_qty);
-
-            $data = [
-                'stock' => $stok,
-                'updated' => date('Y-m-d H:i:s')
-            ];
-
-            $this->db->where('id_item', $post['cart_item']);
-            $this->db->update('produk_item', $data);
-        }
-
-        $this->m_sale->update_cart($post);
-        $this->session->set_flashdata('pesan', 'Cart berhasil diupdate.');
-        redirect(base_url('apps-kasir'));
-    }
 
     public function cart_data()
     {
@@ -301,5 +184,31 @@ class App_kasir extends CI_Controller
         $this->load->view('kasir/print_invoice', $data);
     }
 }
+
+    // public function get_all_barang()
+    // {
+    //     $data = $this->m_barang->lihat_nama_produk($_POST['nama_barang']);
+    //     echo json_encode($data);
+    // }
+
+    // public function keranjang_barang()
+    // {
+    //     $this->load->view('kasir/keranjang');
+    // }
+
+    // public function store()
+    // {
+    //     $data = $this->input->post();
+    //     // Process the data and save to database
+    //     $result = $this->kasir_model->save_transaction($data);
+    //     if ($result) {
+    //         echo json_encode(['success' => true, 'message' => 'Transaksi berhasil diproses.']);
+    //     } else {
+    //         echo json_encode(['success' => false, 'message' => 'Terjadi kesalahan saat memproses transaksi.']);
+    //     }
+    // }
+
+    
+
 
 /* End of file App_kasir.php */

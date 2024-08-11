@@ -19,9 +19,35 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/dist/css/adminlte.min.css">
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/toastr/toastr.min.css">
     <style>
         html {
             font-size: .9rem !important;
+        }
+
+        .modal-dialog-centered {
+            display: flex;
+            align-items: center;
+            min-height: calc(100% - 1.75rem);
+            /* Adjust based on header/footer height */
+        }
+
+        .overlay1 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            display: none;
+            /* Initially hidden */
         }
     </style>
 </head>
@@ -79,7 +105,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="<?= base_url('logout') ?>">Back to Login</a></li>
+                                <li class="breadcrumb-item"><a href="<?= base_url('home') ?>">Back to Home Page</a></li>
                                 <!-- <li class="breadcrumb-item"><a href="#">Layout</a></li>
                                 <li class="breadcrumb-item active">Top Navigation</li> -->
                             </ol>
@@ -108,7 +134,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         </dotlottie-player>
                                     </center>
                                     <br>
-                                    <a href="<?= base_url('apps-kasir') ?>" class="btn btn-danger btn-block"><i class="fas fa-computer"></i> Go to Kasir App</a>
+                                    <a data-toggle="modal" data-target="#loginModal" class="btn btn-danger btn-block"><i class="fas fa-computer"></i> Go to Kasir App</a>
                                 </div>
                             </div>
                         </div>
@@ -124,7 +150,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <dotlottie-player src="https://lottie.host/13c94b18-db0e-42a4-934a-40195f5666b5/hHHQG2vhcv.json" background="transparent" speed="1" style="width: 300px; height: 300px" direction="1" playMode="normal" loop autoplay></dotlottie-player>
                                     </center>
                                     <br>
-                                    <a href="<?= base_url('dashboard') ?>" class="btn btn-primary btn-block"><i class="fas fa-termo"></i> Go to Dashboard</a>
+                                    <a data-toggle="modal" data-target="#loginModal"" class=" btn btn-primary btn-block"><i class="fas fa-termo"></i> Go to Dashboard</a>
                                 </div>
                             </div>
                         </div>
@@ -136,6 +162,38 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                     <!-- /.row -->
                 </div><!-- /.container-fluid -->
+
+                <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="loginModalLabel">Login to Apps</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="loginForm">
+                                    <div class="form-group">
+                                        <label for="email">Username/email</label>
+                                        <input type="text" class="form-control" id="email" name="email" placeholder="Masukkan email" autocomplete="off" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">Password</label>
+                                        <input type="password" class="form-control" id="password" name="password" placeholder="**********" autocomplete="off" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-success btn-block" id="btnLogin">
+                                        <i class="fas fa-1x fa-sync fa-spin" id="spinner" style="display: none;"></i>
+                                        <span id="btnText">Login</span>
+                                    </button>
+                                    <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Close</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
             <!-- /.content -->
         </div>
@@ -154,7 +212,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 Anything you want
             </div>
             <!-- Default to the left -->
-            Copyright &copy; 2024 <a href="https://winartcode.my.id">~ WinArt&Code</a>
+            Copyright &copy; 2024 <a href="https://winartcode.my.id">- Titik Balik Teknologi</a>
         </footer>
     </div>
     <!-- ./wrapper -->
@@ -167,6 +225,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="<?= base_url() ?>assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="<?= base_url() ?>assets/dist/js/adminlte.min.js"></script>
+    <script src="<?= base_url() ?>public/js/login.js"></script>
+
+
+    <script src="<?= base_url() ?>public/js/sweetalert2@11.js"></script>
+    <script src="<?= base_url() ?>public/js/myscript.js"></script>
+
     <!-- lottie -->
     <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
 </body>
