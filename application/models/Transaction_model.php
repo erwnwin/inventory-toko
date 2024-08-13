@@ -2,20 +2,15 @@
 class Transaction_model extends CI_Model
 {
 
-    public function process_transaction($id_customer, $sub_total, $discount, $grand_total, $cash, $change, $note, $date)
+    public function get_sales_by_date_range($tanggal_mulai, $tanggal_selesai)
     {
-        // Simpan transaksi
-        $data = array(
-            'id_customer' => $id_customer,
-            'sub_total' => $sub_total,
-            'discount' => $discount,
-            'grand_total' => $grand_total,
-            'cash' => $cash,
-            'change' => $change,
-            'note' => $note,
-            'date' => $date
-        );
-        $this->db->insert('tbl_sale', $data);
-        return $this->db->insert_id(); // Return ID transaksi yang baru dibuat
+        $this->db->select('*');
+        $this->db->from('tbl_sale');
+        // $this->db->join('tbl_sale_detail', 'tbl_sale.id_sale = tbl_sale_detail.id_sale');
+        $this->db->where('tbl_sale.date >=', $tanggal_mulai);
+        $this->db->where('tbl_sale.date <=', $tanggal_selesai);
+        $query = $this->db->get();
+
+        return $query->result();
     }
 }

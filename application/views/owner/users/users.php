@@ -55,6 +55,8 @@
                                                          <span class="badge bg-primary"><?= $item->role ?></span>
                                                      <?php } elseif ($item->role == 'admin') { ?>
                                                          <span class="badge bg-success"><?= $item->role ?></span>
+                                                     <?php } elseif ($item->role == 'kasir') { ?>
+                                                         <span class="badge bg-info"><?= $item->role ?></span>
                                                      <?php } ?>
 
                                                  </td>

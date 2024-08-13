@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Barang_keluar extends CI_Controller
+class Barang_keluar extends MY_Controller
 {
 
     public function __construct()
@@ -11,6 +11,11 @@ class Barang_keluar extends CI_Controller
         $this->load->model('m_stok');
         $this->load->model('m_item');
         $this->load->model('m_supplier');
+    }
+
+    protected function get_allowed_roles()
+    {
+        return array('petugas'); // Only 'admin' and 'owner' can access this controller
     }
 
 

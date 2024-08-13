@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Stok_produk extends CI_Controller
+class Stok_produk extends MY_Controller
 {
 
     public function __construct()
@@ -11,6 +11,11 @@ class Stok_produk extends CI_Controller
         $this->load->model('m_item');
         $this->load->library('dompdf_gen');
         $this->load->library('spout_lib_produk');
+    }
+
+    protected function get_allowed_roles()
+    {
+        return array('admin', 'petugas', 'owner'); // Only 'admin' and 'owner' can access this controller
     }
 
 

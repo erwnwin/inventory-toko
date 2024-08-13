@@ -31,7 +31,7 @@
                                      <thead>
                                          <tr>
                                              <th style="width: 10px">#</th>
-                                             <th>Nama Kategori</th>
+                                             <th>Nama Barang/Produk</th>
                                              <th>Kategori</th>
                                              <th>Unit</th>
                                              <th>Harga</th>

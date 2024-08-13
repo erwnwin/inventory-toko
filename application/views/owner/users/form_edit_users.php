@@ -62,6 +62,7 @@
                                                          <option value="admin" <?php if ($users->role == 'admin') { ?> selected <?php } ?>>Admin</option>
                                                          <option value="owner" <?php if ($users->role == 'owner') { ?> selected <?php } ?>>Owner Toko</option>
                                                          <option value="petugas" <?php if ($users->role == 'petugas') { ?> selected <?php } ?>>Petugas Toko</option>
+                                                         <option value="kasir" <?php if ($users->role == 'kasir') { ?> selected <?php } ?>>Kasir Toko</option>
                                                      </select>
                                                  </div>
                                              </div>

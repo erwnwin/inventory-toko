@@ -44,16 +44,16 @@
 
 <script>
     $(document).ready(function() {
-        calculate()
-        loadItem()
+        calculate();
+        loadItem();
     });
 
     $(document).on('click', '#select', function() {
-        $('#id_item').val($(this).data('id'))
-        $('#barcode').val($(this).data('barcode'))
-        $('#price').val($(this).data('price'))
-        $('#stock').val($(this).data('stock'))
-        $('#modal-item').modal('hide')
+        $('#id_item').val($(this).data('id'));
+        $('#barcode').val($(this).data('barcode'));
+        $('#price').val($(this).data('price'));
+        $('#stock').val($(this).data('stock'));
+        $('#modal-item').modal('hide');
     });
 
     function cek_qty(val) {
@@ -89,7 +89,6 @@
                 $('#barcode').val('');
                 $('#barcode').focus();
             });
-            // alert('Stock tidak mencukupi');
         } else {
             $.ajax({
                 type: "POST",
@@ -104,54 +103,24 @@
                 success: function(result) {
                     if (result.success == true) {
                         $('#cart_tabel').load('<?= base_url('apps-kasir/cart-data'); ?>', function() {
-                            calculate()
+                            calculate();
                         });
                         $('#id_item').val('');
                         $('#barcode').val('');
                         $('#qty').val(1);
                         $('#barcode').focus();
-                        loadItem()
+                        loadItem();
                     } else {
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
                             text: 'Gagal tambah item cart!'
                         });
-                        // alert('Gagal tambah item cart');
                     }
                 }
             });
         }
-    })
-
-    // $(document).on('click', '#del_cart', function() {
-    //     if (confirm('apakah anda yakin?')) {
-    //         var id_cart = $(this).data('cartid');
-    //         $.ajax({
-    //             type: "POST",
-    //             url: "<?= base_url('apps-kasir/cart-del') ?>",
-    //             data: {
-    //                 'id_cart': id_cart
-    //             },
-    //             dataType: "json",
-    //             success: function(result) {
-    //                 if (result.success == true) {
-    //                     $('#cart_tabel').load('<?= base_url('apps-kasir/cart-data'); ?>', function() {
-
-    //                     });
-    //                 } else {
-    //                     Swal.fire({
-    //                         icon: 'error',
-    //                         title: 'Oops...',
-    //                         text: 'Gagal hapus item cart!'
-    //                     });
-    //                     // alert('Gagal hapus item cart');
-    //                 }
-    //             }
-    //         });
-
-    //     }
-    // });
+    });
 
     $(document).on('click', '#del_cart', function() {
         Swal.fire({
@@ -184,14 +153,12 @@
                                 title: 'Oops...',
                                 text: 'Gagal hapus item cart!'
                             });
-                            // alert('Gagal hapus item cart');
                         }
                     }
                 });
             }
         });
     });
-
 
     $(document).on('click', '#process_payment', function() {
         var subtotal = $('#sub_total').val();
@@ -204,7 +171,6 @@
         var date = $('#date').val();
 
         if (subtotal < 1) {
-            // alert('Product belum dipilih');
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -213,7 +179,6 @@
                 $('#barcode').focus();
             });
         } else if (cash < 1) {
-            // alert('Masukkan Uang Cash');
             Swal.fire({
                 icon: 'warning',
                 title: 'Oops...',
@@ -221,49 +186,15 @@
             }).then((result) => {
                 $('#cash').focus();
             });
-
+        } else if (parseFloat(cash) < parseFloat(grandtotal)) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Kas tidak mencukupi untuk proses pembayaran!'
+            }).then((result) => {
+                $('#cash').focus();
+            });
         } else {
-            // if (confirm(
-            //         Swal.fire({
-            //             title: "Konfirmasi",
-            //             text: "Ingin menghapus data ini?",
-            //             icon: "warning",
-            //             showCancelButton: true,
-            //             confirmButtonColor: "#3085d6",
-            //             cancelButtonColor: "#d33",
-            //             confirmButtonText: "Ya, Hapus",
-            //             cancelButtonText: "Tidak",
-            //         })
-            //     )) {
-            //     $.ajax({
-            //         type: "POST",
-            //         url: "<?= base_url('apps-kasir/process') ?>",
-            //         data: {
-            //             'process_payment': true,
-            //             'id_customer': customer,
-            //             'sub_total': subtotal,
-            //             'discount': discount,
-            //             'grand_total': grandtotal,
-            //             'cash': cash,
-            //             'change': change,
-            //             'note': note,
-            //             'date': date
-            //         },
-            //         dataType: "json",
-            //         success: function(result) {
-            //             if (result.success == true) {
-            //                 console.log('Print.......')
-
-            //                 alert('Berhasil melakukan transaksi')
-            //                 window.open('<?= base_url('apps-kasir/print/') ?>' + result.id_sale,
-            //                     '_blank')
-            //                 location.reload();
-            //             } else {
-            //                 alert('gagal melakukan transaksi');
-            //             }
-            //         }
-            //     });
-            // }
             confirmAndProcessTransaction(customer, subtotal, discount, grandtotal, cash, change, note, date);
         }
     });
@@ -305,7 +236,7 @@
                                 showConfirmButton: true
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                    window.open('<?= base_url('apps-kasir/print/') ?>' + result.id_sale, '_blank');
+                                    window.open('<?= base_url('apps-kasir') ?>');
                                     location.reload();
                                 }
                             });
@@ -340,30 +271,6 @@
     }
 
     $(document).on('click', '#cancel_payment', function() {
-        // if (confirm('Ingin membatalkan pesanan?')) {
-        //     $.ajax({
-        //         type: "POST",
-        //         url: "<?= base_url('apps-kasir/reset') ?>",
-        //         data: {
-        //             'cancel_payment': true
-        //         },
-        //         dataType: "json",
-        //         success: function(result) {
-        //             if (result.success == true) {
-        //                 console.log('terhapus')
-        //                 $('#cart_tabel').load('<?= base_url('apps-kasir/cart-data'); ?>', function() {
-        //                     calculate()
-        //                 });
-        //             }
-        //         }
-        //     })
-        //     $('#discount').val(0)
-        //     $('#cash').val(0)
-        //     $('#customer').val(0).change()
-        //     $('#barcode').val('')
-        //     $('#barcode').focus()
-
-        // }
         confirmCancellation();
     });
 
@@ -379,7 +286,6 @@
             cancelButtonText: "Tidak",
         }).then((result) => {
             if (result.isConfirmed) {
-                // User clicked "Ya, Batalkan"
                 $.ajax({
                     type: "POST",
                     url: "<?= base_url('apps-kasir/reset') ?>",
@@ -390,10 +296,8 @@
                     success: function(result) {
                         if (result.success) {
                             console.log('Pesanan dibatalkan');
-                            // Reload cart data and recalculate
                             $('#cart_tabel').load('<?= base_url('apps-kasir/cart-data'); ?>', function() {
                                 calculate();
-                                // window.location.href = '<?= base_url() ?>';
                             });
                         }
                     },
@@ -407,7 +311,6 @@
                     }
                 });
 
-                // Reset input fields
                 $('#discount').val(0);
                 $('#cash').val(0);
                 $('#customer').val(0).change();
@@ -416,47 +319,80 @@
         });
     }
 
-
     function loadItem() {
         $.ajax({
             url: "<?= base_url('item/get_data') ?>",
             type: "GET",
             dataType: "json",
             success: function(result) {
-                console.log(result)
-                // var final = JSON.parse(result);
-                $("#tblItem").html(result)
+                console.log(result);
+                $("#tblItem").html(result);
             }
-        })
+        });
     }
 
     function calculate() {
         var subtotal = 0;
         $('#cart_tabel tr').each(function() {
-            subtotal += parseInt($(this).find('#total').text(), 10)
-        })
-        isNaN(subtotal) ? $('#sub_total').val(0) : $('#sub_total').val(subtotal)
+            subtotal += parseInt($(this).find('#total').text(), 10);
+        });
+        isNaN(subtotal) ? $('#sub_total').val(0) : $('#sub_total').val(subtotal);
 
-        var discount = $('#discount').val()
-        var grand_total = subtotal - discount
-        //console.log(subtotal);
+        var discount = $('#discount').val();
+        var grand_total = subtotal - discount;
         if (isNaN(grand_total)) {
-            $('#grand_total').val(0)
-            $('#grand_total2').text(0)
+            $('#grand_total').val(0);
+            $('#grand_total2').text(0);
         } else {
-            $('#grand_total').val(grand_total)
-            $('#grand_total2').text(grand_total)
+            $('#grand_total').val(grand_total);
+            $('#grand_total2').text(grand_total);
         }
 
-        //hitung kembalian
         var cash = $('#cash').val();
         cash != 0 ? $('#change').val(cash - grand_total) : $('#change').val(0);
     }
 
     $(document).on('keyup mouseup', '#discount, #cash', function() {
-        calculate()
-    })
+        calculate();
+    });
 </script>
+
+
+<script>
+    $(document).ready(function() {
+        $('#tanggal_mulai, #tanggal_selesai').on('change', function() {
+            var tanggal_mulai = $('#tanggal_mulai').val();
+            var tanggal_selesai = $('#tanggal_selesai').val();
+
+            if (tanggal_mulai && tanggal_selesai) {
+                $.ajax({
+                    url: '<?= base_url('history-transaksi/filter'); ?>',
+                    type: 'POST',
+                    data: {
+                        tanggal_mulai: tanggal_mulai,
+                        tanggal_selesai: tanggal_selesai
+                    },
+                    beforeSend: function() {
+                        $('#loading').show();
+                    },
+                    success: function(response) {
+                        $('#loading').hide();
+                        $('table tbody').html(response);
+                    },
+                    error: function() {
+                        $('#loading').hide();
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error!',
+                            text: 'Terjadi kesalahan saat memproses permintaan.'
+                        });
+                    }
+                });
+            }
+        });
+    });
+</script>
+
 
 <script>
     $(function() {
@@ -477,207 +413,6 @@
     });
 </script>
 
-<!-- <script>
-    $(document).ready(function() {
-        // Initialize date and time fields
-        $('#date').val(new Date().toISOString().split('T')[0]);
-        $('#jam_penjualan').val(new Date().toLocaleTimeString([], {
-            hour: '2-digit',
-            minute: '2-digit'
-        }));
-
-        $('#nama_barang').on('change', function() {
-            const namaProduk = $(this).val();
-            if (namaProduk) {
-                $.ajax({
-                    url: 'apps-kasir/get-all-barang',
-                    type: 'POST',
-                    dataType: 'json',
-                    data: {
-                        nama_barang: namaProduk
-                    },
-                    success: function(data) {
-                        if (data) {
-                            $('#barcode').val(data.barcode);
-                            $('#price').val(data.price);
-                            $('#max_hidden').val(data.stock);
-                            $('#jumlah').val(1).prop('readonly', false);
-                            $('#sub_total').val((data.price * 1).toFixed(2));
-                            $('#tambah').prop('disabled', false);
-                        }
-                    }
-                });
-            } else {
-                resetForm();
-            }
-        });
-
-        $('#jumlah').on('input', function() {
-            const price = parseFloat($('#price').val());
-            const jumlah = parseInt($(this).val());
-            const subTotal = price * jumlah;
-            $('#sub_total').val(subTotal.toFixed(2));
-        });
-
-        $('#tambah').on('click', function() {
-            const namaProduk = $('#nama_barang').val();
-            const price = parseFloat($('#price').val());
-            const jumlah = parseInt($('#jumlah').val());
-            const maxStock = parseInt($('#max_hidden').val());
-            const subTotal = parseFloat($('#sub_total').val());
-
-            if (jumlah > maxStock) {
-                Swal.fire('Error', 'Stok tidak mencukupi.', 'error');
-                return;
-            }
-
-            let productExists = false;
-
-            $('#keranjang tbody tr').each(function() {
-                const rowNamaProduk = $(this).find('.nama_barang').text().trim();
-                if (rowNamaProduk === namaProduk) {
-                    const currentJumlah = parseInt($(this).find('.jumlah').text().trim());
-                    $(this).find('.jumlah').text(currentJumlah + jumlah);
-                    $(this).find('input[name="jumlah_hidden[]"]').val(currentJumlah + jumlah);
-                    $(this).find('.sub_total').text((price * (currentJumlah + jumlah)).toFixed(2));
-                    $(this).find('input[name="sub_total_hidden[]"]').val((price * (currentJumlah + jumlah)).toFixed(2));
-                    productExists = true;
-                    return false; // Exit the each loop
-                }
-            });
-
-            if (!productExists) {
-                $('#keranjang tbody').append(`
-                <tr class="row-keranjang">
-                    <td class="nama_barang">${namaProduk}
-                        <input type="hidden" name="nama_barang_hidden[]" value="${namaProduk}">
-                    </td>
-                    <td class="harga_barang">${price}
-                        <input type="hidden" name="harga_barang_hidden[]" value="${price}">
-                    </td>
-                    <td class="jumlah">${jumlah}
-                        <input type="hidden" name="jumlah_hidden[]" value="${jumlah}">
-                    </td>
-                    <td class="sub_total">${subTotal}
-                        <input type="hidden" name="sub_total_hidden[]" value="${subTotal}">
-                    </td>
-                    <td class="aksi">
-                        <button type="button" class="btn btn-danger btn-sm" id="tombol-hapus" data-nama-barang="${namaProduk}">
-                            <i class="fa fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-            `);
-            }
-
-            updateTotal();
-            resetForm();
-        });
-
-        $(document).on('click', '#tombol-hapus', function() {
-            $(this).closest('tr').remove();
-            updateTotal();
-        });
-
-        $('input[name="cash"]').on('input', function() {
-            const grandTotal = parseFloat($('#grand_total_display').val());
-            const cash = parseFloat($(this).val());
-            if (!isNaN(cash)) {
-                $('#kembalian').val((cash - grandTotal).toFixed(2));
-            }
-        });
-
-        $('#form-tambah').on('submit', function(e) {
-            e.preventDefault();
-            const grandTotal = parseFloat($('#grand_total_display').val());
-            const cash = parseFloat($('input[name="cash"]').val());
-
-            if ($('#keranjang tbody tr').length === 0) {
-                Swal.fire('Error', 'Harap pilih barang terlebih dahulu.', 'error');
-                return;
-            }
-
-            if (isNaN(cash) || cash <= 0) {
-                Swal.fire('Warning', 'Harap isi jumlah uang tunai.', 'warning');
-                return;
-            }
-
-            if (cash < grandTotal) {
-                Swal.fire('Warning', 'Uang tunai tidak mencukupi. Harap cek kembali jumlah uang tunai Anda.', 'warning');
-                return;
-            }
-
-            Swal.fire({
-                title: 'Konfirmasi Pembayaran',
-                text: `Total pembayaran adalah ${grandTotal.toFixed(2)}. Apakah Anda yakin?`,
-                icon: 'info',
-                showCancelButton: true,
-                confirmButtonText: 'Ya, bayar',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    submitForm();
-                }
-            });
-        });
-
-        function submitForm() {
-            updateDetailsHidden();
-            $.ajax({
-                url: 'apps-kasir/store',
-                type: 'POST',
-                data: $('#form-tambah').serialize(),
-                dataType: 'json', // Ensure response is in JSON format
-                success: function(response) {
-                    Swal.fire(response.message, '', response.success ? 'success' : 'error');
-                    if (response.success) {
-                        location.reload();
-                    }
-                }
-            });
-        }
-
-        function updateTotal() {
-            let total = 0;
-            $('#keranjang tbody tr').each(function() {
-                const subTotal = parseFloat($(this).find('.sub_total').text());
-                total += subTotal;
-            });
-            $('#total').text(total.toFixed(2));
-            $('#grand_total_display').val(total.toFixed(2));
-            $('#kembalian').val((parseFloat($('input[name="cash"]').val()) - total).toFixed(2));
-
-            if (total > 0) {
-                $('#form-tambah').find('button[type="submit"]').show();
-            } else {
-                $('#form-tambah').find('button[type="submit"]').hide();
-            }
-        }
-
-        function updateDetailsHidden() {
-            const details = [];
-            $('#keranjang tbody tr').each(function() {
-                details.push({
-                    nama_barang: $(this).find('.nama_barang').text(),
-                    harga_barang: $(this).find('.harga_barang').text(),
-                    jumlah: $(this).find('.jumlah').text(),
-                    sub_total: $(this).find('.sub_total').text()
-                });
-            });
-            $('#details_hidden').val(JSON.stringify(details));
-        }
-
-        function resetForm() {
-            $('#nama_barang').val('');
-            $('#barcode').val('');
-            $('#price').val('');
-            $('#jumlah').val('');
-            $('#sub_total').val('');
-            $('#jumlah').prop('readonly', true);
-            $('#tambah').prop('disabled', true);
-        }
-    });
-</script> -->
 
 </body>
 

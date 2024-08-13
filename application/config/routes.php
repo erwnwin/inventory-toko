@@ -57,6 +57,7 @@ $route['login/validate'] = 'Apps/validate';
 $route['dashboard'] = 'owner/dashboard';
 $route['profil'] = 'owner/profil';
 $route['info-apps'] = 'owner/info_app';
+$route['info-apps/update'] = 'owner/info_app/update';
 
 // users
 $route['users'] = 'owner/user';
@@ -79,10 +80,13 @@ $route['units/store'] = 'owner/units/store';
 $route['items'] = 'owner/items';
 $route['items/create'] = 'owner/items/create';
 $route['items/store'] = 'owner/items/store';
+$route['items/edit/(:any)'] = 'owner/items/edit/$1';
+$route['items/update'] = 'owner/items/update';
 
 // supplier
 $route['supplier'] = 'owner/supplier';
 $route['supplier/store'] = 'owner/supplier/store';
+$route['supplier/update'] = 'owner/supplier/update';
 
 // barang-masuk
 $route['barang-masuk'] = 'owner/barang_masuk';
@@ -127,7 +131,8 @@ $route['apps-kasir/store'] = 'staf/app_kasir/store';
 
 // history-transaksi
 $route['history-transaksi'] = 'staf/history_transaksi';
-$route['history-transaksi/filter'] = 'staf/history_transaksi/filter_sales';
+$route['history-transaksi/filter'] = 'staf/history_transaksi/filter';
+$route['history-transaksi/print/(:any)'] = 'staf/history_transaksi/print/$1';
 
 
 $route['riwayat-penjualan'] = 'owner/Riwayat_penjualan';
@@ -140,6 +145,9 @@ $route['stok-produk/export-pdf'] = 'owner/Stok_produk/export_pdf';
 $route['stok-produk/export-excel'] = 'owner/Stok_produk/export_excel';
 
 $route['filter-laporan'] = 'owner/Filter_laporan';
+$route['filter-laporan/filtered'] = 'owner/Filter_laporan/filter_laporan';
+$route['filter-laporan/export-pdf'] = 'owner/Filter_laporan/export_pdf';
+$route['filter-laporan/export-excel'] = 'owner/Filter_laporan/export_excel';
 
 
 $route['404_override'] = '';

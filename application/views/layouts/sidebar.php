@@ -53,29 +53,14 @@
 
 
                  <?php if ($this->session->userdata('hak_akses') == '2'): ?>
-                     <li class="nav-item <?= $this->uri->segment(1) == 'barang-masuk' || $this->uri->segment(1) == 'barang-keluar' ? 'menu-open' : '' ?>">
-                         <a href="#" class="nav-link <?= $this->uri->segment(1) == 'barang-masuk' || $this->uri->segment(1) == 'barang-keluar' ? 'active' : '' ?>">
-                             <i class="nav-icon fas fa-file-alt"></i>
+                     <li class="nav-item">
+                         <a href="<?= base_url('filter-laporan') ?>" class="nav-link <?= $this->uri->segment(1) == 'filter-laporan' ? 'active' : ''
+                                                                                        ?>">
+                             <i class="nav-icon fas fa-clipboard-list"></i>
                              <p>
                                  Report Barang
-                                 <i class="fas fa-angle-left right"></i>
                              </p>
                          </a>
-                         <ul class="nav nav-treeview">
-                             <li class="nav-item">
-                                 <a href="<?= base_url('barang-masuk') ?>" class="nav-link <?= $this->uri->segment(1) == 'barang-masuk' ? 'active' : '' ?>">
-                                     <i class="fas fa-arrow-right nav-icon"></i>
-                                     <p>Barang Masuk</p>
-                                 </a>
-                             </li>
-                             <li class="nav-item">
-                                 <a href="<?= base_url('barang-keluar') ?>" class="nav-link <?= $this->uri->segment(1) == 'barang-keluar' ? 'active' : '' ?>">
-                                     <i class="fas fa-arrow-left nav-icon"></i>
-                                     <p>Barang Keluar</p>
-                                 </a>
-                             </li>
-                         </ul>
-
                      </li>
                  <?php elseif ($this->session->userdata('hak_akses') == '3') : ?>
                      <li class="nav-header">Petugas Toko</li>
@@ -166,10 +151,18 @@
                  <?php endif; ?>
 
 
-
-
                  <?php if ($this->session->userdata('hak_akses') == '4'): ?>
                      <li class="nav-header">Admin</li>
+                     <li class="nav-item">
+                         <a href="<?= base_url('dashboard') ?>" class="nav-link <?= $this->uri->segment(1) == 'dashboard' ? 'active' : ''
+                                                                                ?>">
+                             <!-- <i class="nav-icon fas fa-tachometer-alt"></i> -->
+                             <i class="nav-icon fas fa-th-large"></i>
+                             <p>
+                                 Dashboard
+                             </p>
+                         </a>
+                     </li>
                      <li class="nav-item <?= $this->uri->segment(1) == 'kategori' || $this->uri->segment(1) == 'units' || $this->uri->segment(1) == 'items' ? 'menu-open' : '' ?>">
                          <a href="#" class="nav-link <?= $this->uri->segment(1) == 'kategori' ||  $this->uri->segment(1) == 'units' || $this->uri->segment(1) == 'items' ? 'active' : '' ?>">
                              <i class="nav-icon fas fa-table"></i>
@@ -250,7 +243,9 @@
                              <i class="nav-icon fas fa-users"></i>
                              <p>
                                  Users
-                                 <span class="right badge badge-danger">2</span>
+                                 <?php if ($user_count > 0): ?>
+                                     <span class="right badge badge-danger"><?= $user_count ?></span>
+                                 <?php endif; ?>
                              </p>
                          </a>
                      </li>

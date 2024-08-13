@@ -130,7 +130,7 @@
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item" style="margin-right: 25px;"><a class="nav-link" aria-current="page" href="<?= base_url('home') ?>">Home</a></li>
                         <li class="nav-item" style="margin-right: 25px;"><a class="nav-link" aria-current="page" href="#produks">Produk</a></li>
-                        <li class="nav-item" style="margin-right: 5px;"><a class="nav-link" aria-current="page" href="#tentang-toko">Tentang Toko</a></li>
+                        <!-- <li class="nav-item" style="margin-right: 5px;"><a class="nav-link" aria-current="page" href="#tentang-toko">Tentang Toko</a></li> -->
                         <!-- <li class="nav-item"><a class="nav-link" aria-current="page" href="#superhero">Pricing</a></li>
                         <li class="nav-item"><a class="nav-link" aria-current="page" href="#marketing">Resources</a></li> -->
                     </ul>
@@ -141,37 +141,14 @@
                 </div>
             </div>
         </nav>
-        <section class="pt-7">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-md-6 text-md-start text-center py-6">
-                        <h1 class="mb-4 fs-9 fw-bold">Selamat Datang!</h1>
-                        <!-- <p class="mb-6 lead text-secondary">Optik Fadhel didirikan oleh dr. Andi Sengngeng Relle Sp.M., MARS, selaku Pemilik dan Pimipinan/Direktur Utama di Makassar.<br class="d-none d-xl-block" /> Sebagai usaha Retail Kaca Mata papan atas yang sangat diperhitungkan dan disegani di Makassar</p> -->
-                        <p class="mb-6" lead text-secondary>
-                            <?= isset($setting_info['deskripsi_depan']) ? $setting_info['deskripsi_depan'] : 'Deskripsi tidak tersedia.' ?>
-                        </p>
-                        <div class="text-center text-md-start">
-                            <a class="btn btn-outline-primary me-3 btn-lg" href="#produks" role="button">Produk yang kami tawarkan</a>
-                            <!-- <a class="btn btn-link text-warning fw-medium" href="#!" role="button" data-bs-toggle="modal" data-bs-target="#popupVideo"><span class="fas fa-play me-2"></span>Watch the video </a> -->
-                        </div>
-                    </div>
-                    <div class="col-md-6 text-end">
-                        <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
-                        <dotlottie-player src="https://lottie.host/d22b2794-83bf-4133-a108-efd1dee220d1/wH5WnOgA6p.json" background="transparent" speed="1" style="width: 100%; height: 100%" direction="1" playMode="normal" loop autoplay></dotlottie-player>
-                        <!-- <img class="pt-7 pt-md-0 img-fluid" src="<?= base_url() ?>public/depan/assets/img/hero/hero-img.png" alt="" /> -->
-                    </div>
-                </div>
-            </div>
-        </section>
-
 
         <!-- ============================================-->
         <!-- <section> begin ============================-->
-        <section class="pt-5 pt-md-9 mb-6" id="produks">
+        <section class="pt-5 pt-md-9" id="produks">
             <div class="bg-holder z-index--1 bottom-0 d-none d-lg-block" style="background-image:url(<?= base_url() ?>public/depan/assets/img/category/shape.png); opacity:.5;"></div>
             <!--/.bg-holder-->
             <div class="container">
-                <h1 class="fs-9 fw-bold mb-4 text-center">Produk Kami</h1>
+                <h1 class="fs-9 fw-bold mb-4 text-center">Semua Produk Kami</h1>
                 <div class="row">
                     <div class="col-12">
                         <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -179,37 +156,32 @@
                                 <div class="carousel-item active">
                                     <div class="row justify-content-center">
 
-                                        <?php if ($product == null) { ?>
-                                            <div class="col-lg-3 col-md-4 col-sm-6 mb-4"><span class="badge bg-danger text-center">Belum ada data produk</span></div>
-                                        <?php } else { ?>
-                                            <?php foreach ($product as $p) { ?>
+                                        <?php foreach ($product as $p) { ?>
 
-                                                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                                                    <div class="card product-card">
-                                                        <div class="card-img-wrapper">
-                                                            <img class="card-img-top" src="<?php echo base_url('public/upload/' . $p->gambar); ?>" alt="Feature" />
-                                                        </div>
-                                                        <div class="card-body">
-                                                            <h4 class="card-title mb-3"><?= $p->nama_produk ?></h4>
-                                                            <p class="card-text mb-0 fw-medium text-secondary">
-                                                            <ul>
-                                                                <li>Kategori : <?= $p->nama_kategori ?></li>
-                                                                <li>Harga : <?= indo_currency($p->price) ?></li>
-                                                                <li>Stok Tersedia :
-                                                                    <?php if ($p->stock < 1) { ?>
-                                                                        <span class="badge bg-warning">No Stok</span>
-                                                                    <?php } else { ?>
-                                                                        <span class="badge bg-danger"><?= $p->stock ?></span>
-                                                                    <?php } ?>
-                                                                </li>
-                                                            </ul>
-                                                            </p>
-                                                        </div>
+                                            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                                                <div class="card product-card">
+                                                    <div class="card-img-wrapper">
+                                                        <img class="card-img-top" src="<?php echo base_url('public/upload/' . $p->gambar); ?>" alt="Feature" />
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <h4 class="card-title mb-3"><?= $p->nama_produk ?></h4>
+                                                        <p class="card-text mb-0 fw-medium text-secondary">
+                                                        <ul>
+                                                            <li>Kategori : <?= $p->nama_kategori ?></li>
+                                                            <li>Harga : <?= indo_currency($p->price) ?></li>
+                                                            <li>Stok Tersedia :
+                                                                <?php if ($p->stock < 1) { ?>
+                                                                    <span class="badge bg-warning">No Stok</span>
+                                                                <?php } else { ?>
+                                                                    <span class="badge bg-danger"><?= $p->stock ?></span>
+                                                                <?php } ?>
+                                                            </li>
+                                                        </ul>
+                                                        </p>
                                                     </div>
                                                 </div>
+                                            </div>
 
-
-                                            <?php } ?>
                                         <?php } ?>
                                     </div>
                                 </div>
@@ -226,55 +198,62 @@
                         </div>
                     </div>
                 </div>
-                <div class="text-center mt-4">
+                <!-- <div class="text-center mt-4">
                     <a class="btn btn-primary" href="<?= base_url('home/produks') ?>" role="button">Lihat Semua Produk</a>
-                </div>
+                </div> -->
             </div><!-- end of .container-->
         </section>
+
+
+
+
+
+
+
+
         <!-- <section> close ============================-->
         <!-- ============================================-->
+
 
         <!-- ============================================-->
         <!-- <section> begin ============================-->
-        <section class="pt-5" id="tentang-toko">
+        <!-- <section class="pt-5" id="marketing">
 
             <div class="container">
+                <h1 class="fw-bold fs-6 mb-3">Marketing Strategies</h1>
+                <p class="mb-6 text-secondary">Join 40,000+ other marketers and get proven strategies on email marketing</p>
                 <div class="row">
-                    <div class="col-lg-6">
-                        <!-- <h5 class="text-secondary">Effortless tentang-toko for</h5> -->
-                        <h2 class="mb-2 fs-7 fw-bold">Optik Fadhel</h2>
-                        <p class="mb-4 fw-medium text-secondary">
-                            <?= isset($setting_info['tentang_toko']) ? $setting_info['tentang_toko'] : 'Deskripsi tidak tersedia.' ?>
-
-                        </p>
-                        <h4 class="fs-1 fw-bold">Jam Operasional</h4>
-                        <p class="mb-4 fw-medium text-secondary">
-                            <?= isset($setting_info['jam_buka']) ? $setting_info['jam_buka'] : 'Deskripsi tidak tersedia.' ?>
-
-                        </p>
-                        <h4 class="fs-1 fw-bold">Lokasi</h4>
-                        <p class="mb-4 fw-medium text-secondary">
-                            <?= isset($setting_info['lokasi_toko']) ? $setting_info['lokasi_toko'] : 'Deskripsi tidak tersedia.' ?>
-
-                        </p>
-                        <h4 class="fs-1 fw-bold">No. Telp/WA</h4>
-                        <p class="mb-4 fw-medium text-secondary">
-                            <?= isset($setting_info['no_telp']) ? $setting_info['no_telp'] : 'Deskripsi tidak tersedia.' ?>
-
-                        </p>
+                    <div class="col-md-4 mb-4">
+                        <div class="card"><img class="card-img-top" src="<?= base_url() ?>public/depan/assets/img/marketing/marketing01.png" alt="" />
+                            <div class="card-body ps-0">
+                                <p class="text-secondary">By <a class="fw-bold text-decoration-none me-1" href="#">Abdullah</a>|<span class="ms-1">03 March 2019</span></p>
+                                <h3 class="fw-bold">Increasing Prosperity With Positive Thinking</h3>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-lg-6">
-                        <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
-                        <dotlottie-player src="https://lottie.host/653207a9-2c21-48f2-b503-1420d0dbe1fc/82BP0eOXXy.json" background="transparent" speed="1" style="width: 100%; height: 100%" direction="1" playMode="normal" loop autoplay></dotlottie-player>
-                        <!-- <img class="img-fluid" src="<?= base_url() ?>public/depan/assets/img/validation/validation.png" alt="" /> -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card"><img class="card-img-top" src="<?= base_url() ?>public/depan/assets/img/marketing/marketing02.png" alt="" />
+                            <div class="card-body ps-0">
+                                <p class="text-secondary">By <a class="fw-bold text-decoration-none me-1" href="#">Abdullah</a>|<span class="ms-1">03 March 2019</span></p>
+                                <h3 class="fw-bold">Motivation Is The First Step To Success</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card"><img class="card-img-top" src="<?= base_url() ?>public/depan/assets/img/marketing/marketing03.png" alt="" />
+                            <div class="card-body ps-0">
+                                <p class="text-secondary">By <a class="fw-bold text-decoration-none me-1" href="#">Abdullah</a>|<span class="ms-1">03 March 2019</span></p>
+                                <h3 class="fw-bold">Success Steps For Your Personal Or Business Life</h3>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div><!-- end of .container-->
+            </div> -->
+        <!-- end of .container-->
 
         </section>
         <!-- <section> close ============================-->
         <!-- ============================================-->
-
 
 
 

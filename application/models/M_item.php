@@ -209,4 +209,64 @@ class M_item extends CI_Model
             return $query->result_array(); // Kembalikan semua data item
         }
     }
+
+
+    public function get_all_items_all()
+    {
+        // Select columns from both tables
+        $this->db->select('produk_item.*, produk_item.stock, produk_category.nama_kategori as nama_kategori, produk_unit.nama_unit as name_unit');
+        $this->db->from('produk_item');
+        $this->db->join('produk_category', 'produk_item.id_kategori = produk_category.id_kategori');
+        $this->db->join('produk_unit', 'produk_item.id_unit = produk_unit.id_unit');
+
+        // Execute the query
+        $query = $this->db->get();
+
+        // Return the result
+        return $query->result();
+    }
+
+    public function get_item($id)
+    {
+        $query = $this->db->get_where('produk_item', array('id_item' => $id));
+        return $query->row();
+    }
+
+
+    public function get_item_by_id($id_item)
+    {
+        $this->db->where('id_item', $id_item);
+        $query = $this->db->get('produk_item');
+        return $query->row(); // Return the item data
+    }
+
+    public function update_item($id_item, $data)
+    {
+        $this->db->where('id_item', $id_item);
+        return $this->db->update('produk_item', $data); // Assuming 'items' is your table name
+    }
+
+    public function insert_item($data)
+    {
+        return $this->db->insert('produk_item', $data) ? $this->db->insert_id() : false; // Assuming 'items' is your table name
+    }
+
+
+    public function get_products($limit = 4)
+    {
+        $this->db->select('produk_item.*, produk_category.nama_kategori');
+
+        // Specify the tables and join condition
+        $this->db->from('produk_item');
+        $this->db->join('produk_category', 'produk_item.id_kategori = produk_category.id_kategori');
+
+        // Limit the number of results
+        $this->db->limit($limit);
+
+        // Execute the query
+        $query = $this->db->get();
+
+        // Return the result
+        return $query->result();
+    }
 }

@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class App_kasir extends CI_Controller
+class App_kasir extends MY_Controller
 {
 
 
@@ -17,6 +17,11 @@ class App_kasir extends CI_Controller
         $this->load->model('kasir_model');
     }
 
+
+    protected function get_allowed_roles()
+    {
+        return array('kasir'); // Only 'admin' and 'owner' can access this controller
+    }
 
     public function index()
     {

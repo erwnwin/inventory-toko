@@ -206,6 +206,7 @@ class M_sale extends CI_Model
         return $query;
     }
 
+
     public function sale_detail()
     {
         $this->db->select('*, SUM(qty) as qty');

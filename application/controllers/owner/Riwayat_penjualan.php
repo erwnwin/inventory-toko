@@ -2,10 +2,8 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-class Riwayat_penjualan extends CI_Controller
+class Riwayat_penjualan extends MY_Controller
 {
 
     public function __construct()
@@ -17,6 +15,10 @@ class Riwayat_penjualan extends CI_Controller
         // require_once APPPATH . 'third_party/vendor/autoload.php';
     }
 
+    protected function get_allowed_roles()
+    {
+        return array('admin', 'petugas', 'owner'); // Only 'admin' and 'owner' can access this controller
+    }
     // public function __construct()
     // {
     //     parent::__construct();

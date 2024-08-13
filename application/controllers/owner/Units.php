@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Units extends CI_Controller
+class Units extends MY_Controller
 {
 
 
@@ -12,6 +12,10 @@ class Units extends CI_Controller
         $this->load->model('m_unit');
     }
 
+    protected function get_allowed_roles()
+    {
+        return array('admin'); // Only 'admin' and 'owner' can access this controller
+    }
 
     public function index()
     {

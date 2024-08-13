@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Kasir extends CI_Controller
+class Kasir extends MY_Controller
 {
 
     public function __construct()
@@ -12,6 +12,11 @@ class Kasir extends CI_Controller
         $this->load->model('m_sale');
         $this->load->model('m_item');
         $this->load->model('transaction_model');
+    }
+
+    protected function get_allowed_roles()
+    {
+        return array('kasir'); // Only 'admin' and 'owner' can access this controller
     }
 
     // Menampilkan halaman kasir

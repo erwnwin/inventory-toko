@@ -2,13 +2,8 @@
 <html>
 
 <head>
-    <title>Riwayat Penjualan</title>
+    <title>Stock Report</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-        }
-
         table {
             width: 100%;
             border-collapse: collapse;
@@ -36,10 +31,16 @@
             border-bottom: 3px solid black;
             /* Menambahkan garis tebal di bawah header */
             padding-bottom: 10px;
+            /* Menambahkan jarak antara teks dan garis bawah */
         }
 
         .title b {
             font-size: 18px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
         }
 
         h3 {
@@ -58,33 +59,41 @@
         Jln Perintis Kemerdekaan KM. 10
     </div>
 
-    <h3>Riwayat Penjualan</h3>
+    <h3>
+        <?php
+        if ($type == 'in') {
+            echo 'Stok Barang Masuk';
+        } elseif ($type == 'out') {
+            echo 'Stok Barang Keluar';
+        } else {
+            echo 'Stock Report';
+        }
+        ?>
+    </h3>
     <table>
         <thead>
             <tr>
-                <th>No</th>
-                <th>Product Name</th>
+                <th>Nama Produk</th>
+                <th>Nama Supplier</th>
                 <th>Quantity</th>
-                <th>Price</th>
-                <th>Total</th>
-                <th>Date</th>
+                <th>Tanggal</th>
+                <th>Type</th>
             </tr>
         </thead>
         <tbody>
-            <?php if (!empty($sales)) : ?>
-                <?php foreach ($sales as $key => $sale) : ?>
+            <?php if (!empty($stocks)): ?>
+                <?php foreach ($stocks as $stock): ?>
                     <tr>
-                        <td><?= $key + 1 ?></td>
-                        <td><?= $sale->invoice ?></td>
-                        <td><?= $sale->total_price ?></td>
-                        <td><?= $sale->final_price ?></td>
-                        <td><?= $sale->cash ?></td>
-                        <td><?= $sale->date ?></td>
+                        <td><?= htmlspecialchars($stock['nama_produk']) ?></td>
+                        <td><?= htmlspecialchars($stock['nama_supplier']) ?></td>
+                        <td><?= htmlspecialchars($stock['qty']) ?></td>
+                        <td><?= htmlspecialchars($stock['date']) ?></td>
+                        <td><?= htmlspecialchars($stock['type']) ?></td>
                     </tr>
                 <?php endforeach; ?>
-            <?php else : ?>
+            <?php else: ?>
                 <tr>
-                    <td colspan="6" class="text-center">Tidak ada data yang tersedia</td>
+                    <td colspan="5" class="text-center">Tidak ada data</td>
                 </tr>
             <?php endif; ?>
         </tbody>

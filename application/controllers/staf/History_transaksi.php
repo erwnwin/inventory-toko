@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class History_transaksi extends CI_Controller
+class History_transaksi extends MY_Controller
 {
 
     public function __construct()
@@ -10,8 +10,14 @@ class History_transaksi extends CI_Controller
         parent::__construct();
         $this->load->model('m_sale');
         $this->load->model('m_item');
+        $this->load->model('transaction_model');
+        $this->encryption->initialize(array('driver' => 'openssl'));
     }
 
+    protected function get_allowed_roles()
+    {
+        return array('kasir'); // Only 'admin' and 'owner' can access this controller
+    }
 
     public function index()
     {
@@ -29,26 +35,34 @@ class History_transaksi extends CI_Controller
     }
 
 
-    public function filter_sales()
+    public function filter()
     {
-        $data['title'] = "History Transaksi : Toko Fadhil";
+        $tanggal_mulai = $this->input->post('tanggal_mulai');
+        $tanggal_selesai = $this->input->post('tanggal_selesai');
 
-        $start_date = $this->input->post('tanggal_mulai');
-        $end_date = $this->input->post('tanggal_selesai');
+        if ($tanggal_mulai && $tanggal_selesai) {
+            // Fetch filtered data
+            $sales = $this->transaction_model->get_sales_by_date_range($tanggal_mulai, $tanggal_selesai);
 
-        if ($start_date && $end_date) {
-            $sales = $this->m_sale->get_sales_by_date_range($start_date, $end_date);
+            // Check if $sales is an array of objects
+            if (is_array($sales) || is_object($sales)) {
+                // Load the partial view and pass the data
+                $this->load->view('kasir/filtered_sales_view', ['sales' => $sales]);
+            } else {
+                echo '<tr><td colspan="10" style="text-align: center;">Invalid data format.</td></tr>';
+            }
         } else {
-            $sales = []; // Atau data default jika tidak ada input tanggal
+            echo '<tr><td colspan="10" style="text-align: center;">Invalid date range.</td></tr>';
         }
+    }
 
-        // Mengirim data ke view
-        $data['sales'] = $sales;
-        $this->load->view('kasir-layout/head', $data);
-        $this->load->view('kasir-layout/header', $data);
-        $this->load->view('kasir-layout/sidebar', $data);
-        $this->load->view('kasir/history', $data);
-        $this->load->view('kasir-layout/footer', $data);
+    public function print($encrypted_id)
+    {
+        $id = decrypt_id($encrypted_id);
+
+        $data['sale'] = $this->m_sale->get_sale($id)->row();
+        $data['sale_detail'] = $this->m_sale->get_sale_detail($id)->result();
+        $this->load->view('kasir/print_invoice', $data);
     }
 }
 

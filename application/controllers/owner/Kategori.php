@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Kategori extends CI_Controller
+class Kategori extends MY_Controller
 {
 
 
@@ -10,6 +10,12 @@ class Kategori extends CI_Controller
     {
         parent::__construct();
         $this->load->model('m_kategori');
+    }
+
+
+    protected function get_allowed_roles()
+    {
+        return array('admin'); // Only 'admin' and 'owner' can access this controller
     }
 
 

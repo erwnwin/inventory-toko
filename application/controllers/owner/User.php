@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class User extends CI_Controller
+class User extends MY_Controller
 {
 
     public function __construct()
@@ -12,10 +12,16 @@ class User extends CI_Controller
         $this->encryption->initialize(array('driver' => 'openssl'));
     }
 
+    protected function get_allowed_roles()
+    {
+        return array('admin'); // Only 'admin' and 'owner' can access this controller
+    }
+
 
     public function index()
     {
         $data['title'] = "Users : Toko Fadhil";
+
 
         $config = array();
         $config["base_url"] = base_url() . "users";

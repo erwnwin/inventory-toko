@@ -8,10 +8,9 @@
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 20px;
         }
 
-        h1 {
+        h3 {
             text-align: center;
             margin-bottom: 20px;
         }
@@ -19,6 +18,7 @@
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-top: 20px;
         }
 
         th,
@@ -40,45 +40,59 @@
             font-weight: bold;
         }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
+
+        .title {
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 3px solid black;
+            /* Menambahkan garis tebal di bawah header */
+            padding-bottom: 10px;
+        }
+
+        .title b {
+            font-size: 18px;
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <h1>Stok Produk</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>Attribute</th>
-                    <th>Value</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($product as $item): ?>
-                    <tr>
-                        <td>Nama Produk</td>
-                        <td><?= $item['nama_produk'] ?></td>
-                    </tr>
-                    <tr>
-                        <td>Stock</td>
-                        <td><?= $item['stock'] ?></td>
-                    </tr>
-                    <tr>
-                        <td>Kategori</td>
-                        <td><?= $item['name_category'] ?></td>
-                    </tr>
-                    <tr>
-                        <td>Unit</td>
-                        <td><?= $item['name_unit'] ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+    <div class="title">
+        <b>OPTIK FADHEL</b>
+        <br>
+        Kota Makassar
+        <br>
+        Jln Perintis Kemerdekaan KM. 10
     </div>
+
+    <h3>Stok Produk</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Attribute</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($product as $item): ?>
+                <tr>
+                    <td>Nama Produk</td>
+                    <td><?= $item['nama_produk'] ?></td>
+                </tr>
+                <tr>
+                    <td>Stock</td>
+                    <td><?= $item['stock'] ?></td>
+                </tr>
+                <tr>
+                    <td>Kategori</td>
+                    <td><?= $item['name_category'] ?></td>
+                </tr>
+                <tr>
+                    <td>Unit</td>
+                    <td><?= $item['name_unit'] ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
 </body>
 
 </html>

@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Filter extends CI_Controller
+class Filter extends MY_Controller
 {
 
     public function __construct()

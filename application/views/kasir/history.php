@@ -20,16 +20,16 @@
                          <div class="card-header">
                              <div class="card-title">
 
-                                 <form method="post" action="<?= base_url('history-transaksi/filter'); ?>">
+                                 <form method="post" action="<?= base_url('history-transaksi/filter'); ?>" id="filterForm">
                                      <div class="input-group input-group-sm">
                                          <input type="date" class="form-control" id="tanggal_mulai" name="tanggal_mulai">
                                          <input type="date" class="form-control" id="tanggal_selesai" name="tanggal_selesai">
                                          <!-- <input type="text" class="form-control" placeholder="Search Mail"> -->
-                                         <div class="input-group-append">
+                                         <!-- <div class="input-group-append">
                                              <button class="btn btn-default" type="submit">
                                                  <i class="fas fa-search"></i> Filter
                                              </button>
-                                         </div>
+                                         </div> -->
                                      </div>
                                      <span class="text-small" id="amount_error" style="color: red; font-size: 13px;"></span>
                                      <span class="text-small" id="error" style="color: red; font-size: 13px;"></span>
@@ -53,39 +53,21 @@
                                      <tr>
                                          <th>#</th>
                                          <th>Invoice</th>
-                                         <th>ID Customer</th>
                                          <th>Total Price</th>
                                          <th>Discount</th>
                                          <th>Final Price</th>
                                          <th>Cash</th>
                                          <th>Uang Kembalian</th>
                                          <th>Note</th>
-                                         <th>Date</th>
+                                         <!-- <th>Date</th> -->
+                                         <th>Action</th>
                                      </tr>
                                  </thead>
                                  <tbody>
-                                     <?php if (isset($sales) && !empty($sales)): ?>
-                                         <?php foreach ($sales as $index => $sale): ?>
-                                             <tr>
-                                                 <td><?php echo $index + 1; ?></td>
-                                                 <td><?php echo htmlspecialchars($sale->invoice); ?></td>
-                                                 <td><?php echo htmlspecialchars($sale->id_customer); ?></td>
-                                                 <td><?php echo htmlspecialchars($sale->total_price); ?></td>
-                                                 <td><?php echo htmlspecialchars($sale->discount); ?></td>
-                                                 <td><?php echo htmlspecialchars($sale->final_price); ?></td>
-                                                 <td><?php echo htmlspecialchars($sale->cash); ?></td>
-                                                 <td><?php echo htmlspecialchars($sale->uang_kembalian); ?></td>
-                                                 <td><?php echo htmlspecialchars($sale->note); ?></td>
-                                                 <td><?php echo htmlspecialchars($sale->created_at); ?></td>
-                                             </tr>
-                                         <?php endforeach; ?>
-                                     <?php else: ?>
-                                         <tr>
-                                             <td colspan="10" style="text-align: center;">No sales found for the selected date range.</td>
-                                         </tr>
-                                     <?php endif; ?>
+                                     <!-- Data will be populated here via AJAX -->
                                  </tbody>
                              </table>
+
                          </div>
 
                      </div>
@@ -97,4 +79,26 @@
                  </div>
 
              </section>
+
+             <!-- Detail Modal -->
+             <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+                 <div class="modal-dialog" role="document">
+                     <div class="modal-content">
+                         <div class="modal-header">
+                             <h5 class="modal-title" id="detailModalLabel">Sale Details</h5>
+                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                 <span aria-hidden="true">&times;</span>
+                             </button>
+                         </div>
+                         <div class="modal-body">
+                             <!-- Content will be loaded here -->
+                             <div id="detailContent"></div>
+                         </div>
+                         <div class="modal-footer">
+                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+
          </div>
